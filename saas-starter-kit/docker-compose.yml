@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: saas-starter-kit
+    ports:
+      - 5432:5432
+
+  sut:
+    build: ./sut
+    working_dir: /app
+    volumes:
+      - ./sut:/app
+    command: sleep infinity
+    ports:
+      - 5555:5555
+      - 9323:9323
+      - 4002:4002
