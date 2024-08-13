@@ -34,12 +34,7 @@ let spConfig: ISPSSOConfig;
 const g = global as any;
 
 export default async function init() {
-  if (
-    !g.apiController ||
-    !g.oauthController ||
-    !g.directorySync ||
-    !g.spConfig
-  ) {
+  if (!g.apiController || !g.oauthController || !g.directorySync || !g.spConfig) {
     const ret = await jackson(opts);
 
     apiController = ret.apiController;

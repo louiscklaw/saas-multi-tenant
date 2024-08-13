@@ -8,10 +8,7 @@ import { getUser } from 'models/user';
 import { createPasswordReset } from 'models/passwordReset';
 import { forgotPasswordSchema, validateWithSchema } from '@/lib/zod';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     switch (req.method) {
       case 'POST':
@@ -32,10 +29,7 @@ export default async function handler(
 }
 
 const handlePOST = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { email, recaptchaToken } = validateWithSchema(
-    forgotPasswordSchema,
-    req.body
-  );
+  const { email, recaptchaToken } = validateWithSchema(forgotPasswordSchema, req.body);
 
   await validateRecaptcha(recaptchaToken);
 

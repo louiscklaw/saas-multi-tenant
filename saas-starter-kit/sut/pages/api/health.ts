@@ -3,10 +3,7 @@ import { prisma } from '@/lib/prisma';
 
 import packageInfo from '../../package.json';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (req.method !== 'GET') {
       throw new Error('Method not allowed');

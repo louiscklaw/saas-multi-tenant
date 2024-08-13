@@ -14,9 +14,7 @@ import { useTranslation } from 'next-i18next';
 import { ApiResponse, NextPageWithLayout } from 'types';
 import * as Yup from 'yup';
 
-const VerifyAccount: NextPageWithLayout<
-  InferGetServerSidePropsType<typeof getServerSideProps>
-> = () => {
+const VerifyAccount: NextPageWithLayout<InferGetServerSidePropsType<typeof getServerSideProps>> = () => {
   const router = useRouter();
   const { t } = useTranslation('common');
   const [message, setMessage] = useState<{
@@ -67,9 +65,7 @@ const VerifyAccount: NextPageWithLayout<
       <Head>
         <title>{t('resend-token-title')}</title>
       </Head>
-      {message.text && message.status && (
-        <Alert status={message.status}>{t(message.text)}</Alert>
-      )}
+      {message.text && message.status && <Alert status={message.status}>{t(message.text)}</Alert>}
       <div className="rounded p-6 border">
         <form onSubmit={formik.handleSubmit}>
           <div className="space-y-2">
@@ -105,9 +101,7 @@ VerifyAccount.getLayout = function getLayout(page: ReactElement) {
   return <AuthLayout heading="verify-your-account">{page}</AuthLayout>;
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { locale }: GetServerSidePropsContext = context;
 
   return {

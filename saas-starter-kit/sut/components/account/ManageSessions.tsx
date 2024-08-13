@@ -15,8 +15,7 @@ type NextAuthSession = Session & { isCurrent: boolean };
 const ManageSessions = () => {
   const { t } = useTranslation('common');
   const [askConfirmation, setAskConfirmation] = useState(false);
-  const [sessionToDelete, setSessionToDelete] =
-    useState<NextAuthSession | null>(null);
+  const [sessionToDelete, setSessionToDelete] = useState<NextAuthSession | null>(null);
 
   const { data, isLoading, error, mutate } = useSWR<{
     data: NextAuthSession[];
@@ -57,12 +56,8 @@ const ManageSessions = () => {
     <WithLoadingAndError isLoading={isLoading} error={error}>
       <div className="space-y-3">
         <div className="space-y-2">
-          <h2 className="text-xl font-medium leading-none tracking-tight">
-            {t('browser-sessions')}
-          </h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {t('manage-sessions')}
-          </p>
+          <h2 className="text-xl font-medium leading-none tracking-tight">{t('browser-sessions')}</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{t('manage-sessions')}</p>
         </div>
 
         <Table

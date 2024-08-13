@@ -58,9 +58,7 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
           await handleSubscriptionUpdated(event);
           break;
         case 'customer.subscription.deleted':
-          await deleteStripeSubscription(
-            (event.data.object as Stripe.Subscription).id
-          );
+          await deleteStripeSubscription((event.data.object as Stripe.Subscription).id);
           break;
         default:
           throw new Error('Unhandled relevant event!');
@@ -78,15 +76,8 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handleSubscriptionUpdated(event: Stripe.Event) {
-  const {
-    cancel_at,
-    id,
-    status,
-    current_period_end,
-    current_period_start,
-    customer,
-    items,
-  } = event.data.object as Stripe.Subscription;
+  const { cancel_at, id, status, current_period_end, current_period_start, customer, items } = event.data
+    .object as Stripe.Subscription;
 
   const subscription = await getBySubscriptionId(id);
   if (!subscription) {
@@ -101,12 +92,8 @@ async function handleSubscriptionUpdated(event: Stripe.Event) {
     //type Stripe.Subscription.Status = "active" | "canceled" | "incomplete" | "incomplete_expired" | "past_due" | "paused" | "trialing" | "unpaid"
     await updateStripeSubscription(id, {
       active: status === 'active',
-      endDate: current_period_end
-        ? new Date(current_period_end * 1000)
-        : undefined,
-      startDate: current_period_start
-        ? new Date(current_period_start * 1000)
-        : undefined,
+      endDate: current_period_end ? new Date(current_period_end * 1000) : undefined,
+      startDate: current_period_start ? new Date(current_period_start * 1000) : undefined,
       cancelAt: cancel_at ? new Date(cancel_at * 1000) : undefined,
       priceId,
     });
@@ -114,8 +101,7 @@ async function handleSubscriptionUpdated(event: Stripe.Event) {
 }
 
 async function handleSubscriptionCreated(event: Stripe.Event) {
-  const { customer, id, current_period_start, current_period_end, items } =
-    event.data.object as Stripe.Subscription;
+  const { customer, id, current_period_start, current_period_end, items } = event.data.object as Stripe.Subscription;
 
   await createStripeSubscription({
     customerId: customer as string,

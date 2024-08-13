@@ -30,17 +30,11 @@ const AcceptTeamInvitation: NextPageWithLayout = () => {
 
   const authUser = data?.user;
 
-  const emailDomain = authUser?.email
-    ? extractEmailDomain(authUser.email)
-    : null;
+  const emailDomain = authUser?.email ? extractEmailDomain(authUser.email) : null;
 
-  const emailMatch = invitation.email
-    ? authUser?.email === invitation.email
-    : false;
+  const emailMatch = invitation.email ? authUser?.email === invitation.email : false;
 
-  const emailDomainMatch = invitation.allowedDomains.length
-    ? invitation.allowedDomains.includes(emailDomain!)
-    : true;
+  const emailDomainMatch = invitation.allowedDomains.length ? invitation.allowedDomains.includes(emailDomain!) : true;
 
   const acceptInvite = invitation.sentViaEmail ? emailMatch : emailDomainMatch;
 
@@ -51,36 +45,24 @@ const AcceptTeamInvitation: NextPageWithLayout = () => {
       </Head>
       <div className="rounded p-6 border">
         <div className="flex flex-col items-center space-y-6">
-          <h2 className="font-bold">
-            {`${invitation.team.name} ${t('team-invite')}`}
-          </h2>
+          <h2 className="font-bold">{`${invitation.team.name} ${t('team-invite')}`}</h2>
 
           {/* User not authenticated */}
-          {status === 'unauthenticated' && (
-            <NotAuthenticated invitation={invitation} />
-          )}
+          {status === 'unauthenticated' && <NotAuthenticated invitation={invitation} />}
 
           {/* User authenticated and email matches */}
-          {status === 'authenticated' && acceptInvite && (
-            <AcceptInvitation invitation={invitation} />
-          )}
+          {status === 'authenticated' && acceptInvite && <AcceptInvitation invitation={invitation} />}
 
           {/* User authenticated and email does not match */}
-          {status === 'authenticated' &&
-            invitation.sentViaEmail &&
-            authUser?.email &&
-            !emailMatch && <EmailMismatch email={authUser.email} />}
+          {status === 'authenticated' && invitation.sentViaEmail && authUser?.email && !emailMatch && (
+            <EmailMismatch email={authUser.email} />
+          )}
 
           {/* User authenticated and email domain doesn not match */}
           {status === 'authenticated' &&
             !invitation.sentViaEmail &&
             invitation.allowedDomains.length > 0 &&
-            !emailDomainMatch && (
-              <EmailDomainMismatch
-                invitation={invitation}
-                emailDomain={emailDomain!}
-              />
-            )}
+            !emailDomainMatch && <EmailDomainMismatch invitation={invitation} emailDomain={emailDomain!} />}
         </div>
       </div>
     </>
@@ -91,9 +73,7 @@ AcceptTeamInvitation.getLayout = function getLayout(page: ReactElement) {
   return <AuthLayout>{page}</AuthLayout>;
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { locale } = context;
 
   return {

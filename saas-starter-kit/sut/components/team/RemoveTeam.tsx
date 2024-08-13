@@ -47,11 +47,7 @@ const RemoveTeam = ({ team, allowDelete }: RemoveTeamProps) => {
         <Card.Body>
           <Card.Header>
             <Card.Title>{t('remove-team')}</Card.Title>
-            <Card.Description>
-              {allowDelete
-                ? t('remove-team-warning')
-                : t('remove-team-restricted')}
-            </Card.Description>
+            <Card.Description>{allowDelete ? t('remove-team-warning') : t('remove-team-restricted')}</Card.Description>
           </Card.Header>
         </Card.Body>
         {allowDelete && (

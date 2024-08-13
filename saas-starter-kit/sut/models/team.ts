@@ -7,11 +7,7 @@ import { getCurrentUser } from './user';
 import { normalizeUser } from './user';
 import { validateWithSchema, teamSlugSchema } from '@/lib/zod';
 
-export const createTeam = async (param: {
-  userId: string;
-  name: string;
-  slug: string;
-}) => {
+export const createTeam = async (param: { userId: string; name: string; slug: string }) => {
   const { userId, name, slug } = param;
 
   const team = await prisma.team.create({
@@ -28,9 +24,7 @@ export const createTeam = async (param: {
   return team;
 };
 
-export const getByCustomerId = async (
-  billingId: string
-): Promise<Team | null> => {
+export const getByCustomerId = async (billingId: string): Promise<Team | null> => {
   return await prisma.team.findFirst({
     where: {
       billingId,
@@ -50,11 +44,7 @@ export const deleteTeam = async (key: { id: string } | { slug: string }) => {
   });
 };
 
-export const addTeamMember = async (
-  teamId: string,
-  userId: string,
-  role: Role
-) => {
+export const addTeamMember = async (teamId: string, userId: string, role: Role) => {
   return await prisma.teamMember.upsert({
     create: {
       teamId,
@@ -318,10 +308,7 @@ export const isTeamExists = async (slug: string) => {
 
 // Check if the current user has access to the team
 // Should be used in API routes to check if the user has access to the team
-export const throwIfNoTeamAccess = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
+export const throwIfNoTeamAccess = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession(req, res);
 
   if (!session) {
@@ -431,10 +418,7 @@ export const getTeamMember = async (userId: string, slug: string) => {
 };
 
 // Get current user with team info
-export const getCurrentUserWithTeam = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
+export const getCurrentUserWithTeam = async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await getCurrentUser(req, res);
 
   const { slug } = validateWithSchema(teamSlugSchema, req.query);

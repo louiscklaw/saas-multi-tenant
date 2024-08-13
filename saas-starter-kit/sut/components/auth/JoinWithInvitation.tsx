@@ -1,14 +1,5 @@
-import {
-  Error,
-  InputWithLabel,
-  Loading,
-  WithLoadingAndError,
-} from '@/components/shared';
-import {
-  defaultHeaders,
-  maxLengthPolicies,
-  passwordPolicies,
-} from '@/lib/common';
+import { Error, InputWithLabel, Loading, WithLoadingAndError } from '@/components/shared';
+import { defaultHeaders, maxLengthPolicies, passwordPolicies } from '@/lib/common';
 import { useFormik } from 'formik';
 import useInvitation from 'hooks/useInvitation';
 import { useTranslation } from 'next-i18next';
@@ -30,10 +21,7 @@ interface JoinWithInvitationProps {
 
 const JoinUserSchema = Yup.object().shape({
   name: Yup.string().required().max(maxLengthPolicies.name),
-  password: Yup.string()
-    .required()
-    .min(passwordPolicies.minLength)
-    .max(maxLengthPolicies.password),
+  password: Yup.string().required().min(passwordPolicies.minLength).max(maxLengthPolicies.password),
   sentViaEmail: Yup.boolean().required(),
   email: Yup.string()
     .max(maxLengthPolicies.email)
@@ -43,10 +31,7 @@ const JoinUserSchema = Yup.object().shape({
     }),
 });
 
-const JoinWithInvitation = ({
-  inviteToken,
-  recaptchaSiteKey,
-}: JoinWithInvitationProps) => {
+const JoinWithInvitation = ({ inviteToken, recaptchaSiteKey }: JoinWithInvitationProps) => {
   const router = useRouter();
   const { t } = useTranslation('common');
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
@@ -117,12 +102,7 @@ const JoinWithInvitation = ({
         />
 
         {invitation.sentViaEmail ? (
-          <InputWithLabel
-            type="email"
-            label={t('email')}
-            value={invitation.email!}
-            disabled
-          />
+          <InputWithLabel type="email" label={t('email')} value={invitation.email!} disabled />
         ) : (
           <InputWithLabel
             type="email"
@@ -150,20 +130,9 @@ const JoinWithInvitation = ({
             handlePasswordVisibility={handlePasswordVisibility}
           />
         </div>
-        <GoogleReCAPTCHA
-          recaptchaRef={recaptchaRef}
-          onChange={setRecaptchaToken}
-          siteKey={recaptchaSiteKey}
-        />
+        <GoogleReCAPTCHA recaptchaRef={recaptchaRef} onChange={setRecaptchaToken} siteKey={recaptchaSiteKey} />
         <div className="space-y-3">
-          <Button
-            type="submit"
-            color="primary"
-            loading={formik.isSubmitting}
-            active={formik.dirty}
-            fullWidth
-            size="md"
-          >
+          <Button type="submit" color="primary" loading={formik.isSubmitting} active={formik.dirty} fullWidth size="md">
             {t('create-account')}
           </Button>
           <AgreeMessage text={t('create-account')} />

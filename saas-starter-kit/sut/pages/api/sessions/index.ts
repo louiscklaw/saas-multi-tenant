@@ -4,10 +4,7 @@ import { getSession } from '@/lib/session';
 import { sessionTokenCookieName } from '@/lib/nextAuth';
 import { findManySessions } from 'models/session';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     switch (req.method) {
       case 'GET':
@@ -38,14 +35,10 @@ const handleGET = async (req: NextApiRequest, res: NextApiResponse) => {
     },
   });
 
-  sessions.map(
-    (session) => (session['isCurrent'] = session.sessionToken === sessionToken)
-  );
+  sessions.map((session) => (session['isCurrent'] = session.sessionToken === sessionToken));
 
   // Sort sessions by most recent
-  sessions = sessions.sort(
-    (a, b) => Number(new Date(b.expires)) - Number(new Date(a.expires))
-  );
+  sessions = sessions.sort((a, b) => Number(new Date(b.expires)) - Number(new Date(a.expires)));
 
   res.json({ data: sessions });
 };

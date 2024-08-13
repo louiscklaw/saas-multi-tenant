@@ -19,14 +19,7 @@ interface FormProps {
   editMode?: boolean;
 }
 
-const Form = ({
-  visible,
-  setVisible,
-  initialValues,
-  onSubmit,
-  title,
-  editMode = false,
-}: FormProps) => {
+const Form = ({ visible, setVisible, initialValues, onSubmit, title, editMode = false }: FormProps) => {
   const formik = useFormik<WebookFormSchema>({
     validationSchema: Yup.object().shape({
       name: Yup.string().required().max(maxLengthPolicies.webhookDescription),
@@ -75,9 +68,7 @@ const Form = ({
               <label className="label">
                 <span className="label-text">{t('events-to-send')}</span>
               </label>
-              <p className="ml-1 mb-3 text-sm font-normal text-gray-500">
-                {t('events-description')}
-              </p>
+              <p className="ml-1 mb-3 text-sm font-normal text-gray-500">{t('events-description')}</p>
               <div className="grid grid-cols-2 gap-2">
                 <EventTypes
                   onChange={formik.handleChange}
@@ -99,13 +90,7 @@ const Form = ({
           >
             {t('close')}
           </Button>
-          <Button
-            type="submit"
-            color="primary"
-            loading={formik.isSubmitting}
-            active={formik.dirty}
-            size="md"
-          >
+          <Button type="submit" color="primary" loading={formik.isSubmitting} active={formik.dirty} size="md">
             {editMode ? t('update-webhook') : t('create-webhook')}
           </Button>
         </Modal.Footer>

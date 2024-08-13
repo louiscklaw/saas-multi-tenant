@@ -44,8 +44,7 @@ export class DirectorySyncPage {
     this.createDirectorySubmitButton = this.page.getByRole('button', {
       name: 'Create Directory',
     });
-    this.createDirectorySuccessMessage =
-      this.page.getByText('Connection created');
+    this.createDirectorySuccessMessage = this.page.getByText('Connection created');
     this.noDirectoriesHeader = this.page.getByRole('heading', {
       name: 'No directories found.',
     });
@@ -63,10 +62,7 @@ export class DirectorySyncPage {
     });
     this.saveButton = this.page.getByRole('button', { name: 'Save' });
     this.connectionUpdatedMessage = this.page.getByText('Connection updated');
-    this.activeStatusToggle = this.page
-      .locator('label')
-      .filter({ hasText: 'Active' })
-      .locator('span');
+    this.activeStatusToggle = this.page.locator('label').filter({ hasText: 'Active' }).locator('span');
     this.deactivateConfirmationHeader = this.page.getByRole('heading', {
       name: 'Do you want to deactivate the',
     });
@@ -83,9 +79,7 @@ export class DirectorySyncPage {
   }
 
   async goto(productId?: string) {
-    const url = productId
-      ? `/products/${productId}/dsync`
-      : `/teams/${this.teamSlug}/directory-sync`;
+    const url = productId ? `/products/${productId}/dsync` : `/teams/${this.teamSlug}/directory-sync`;
 
     await this.page.goto(url);
     await this.page.waitForURL(url);
@@ -93,12 +87,7 @@ export class DirectorySyncPage {
     this.productId = productId || '';
   }
 
-  async createConnection(
-    name: string,
-    tenant?: string,
-    webhookUrl?: string,
-    webhookSecret?: string
-  ) {
+  async createConnection(name: string, tenant?: string, webhookUrl?: string, webhookSecret?: string) {
     await this.createDirectoryButton.click();
     await expect(this.createDsyncHeader).toBeVisible();
     await this.directoryNameField.fill(name);
@@ -148,11 +137,7 @@ export class DirectorySyncPage {
 
   async enableConnection() {
     await this.navigateToEditConnection();
-    await this.page
-      .locator('label')
-      .filter({ hasText: 'Inactive' })
-      .locator('span')
-      .click();
+    await this.page.locator('label').filter({ hasText: 'Inactive' }).locator('span').click();
     await expect(this.activateConfirmationHeader).toBeVisible();
     await this.confirmButton.click();
     await expect(this.connectionUpdatedMessage).toBeVisible();

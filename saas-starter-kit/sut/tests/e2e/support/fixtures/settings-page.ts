@@ -18,9 +18,7 @@ export class SettingsPage {
   ) {
     this.newTeamMenu = this.page.getByRole('link', { name: 'New Team' });
     this.newTeamNameInput = this.page.getByPlaceholder('Team Name');
-    this.createTeamDialogButton = this.page
-      .getByRole('dialog')
-      .getByRole('button', { name: 'Create Team' });
+    this.createTeamDialogButton = this.page.getByRole('dialog').getByRole('button', { name: 'Create Team' });
     this.removeTeamButton = this.page.getByRole('button', {
       name: 'Remove Team',
     });
@@ -35,14 +33,9 @@ export class SettingsPage {
   }
 
   async logout() {
-    await this.page
-      .locator('button')
-      .filter({ hasText: this.username })
-      .click();
+    await this.page.locator('button').filter({ hasText: this.username }).click();
     await this.page.getByRole('button', { name: 'Sign out' }).click();
-    await expect(
-      this.page.getByRole('heading', { name: 'Welcome back' })
-    ).toBeVisible();
+    await expect(this.page.getByRole('heading', { name: 'Welcome back' })).toBeVisible();
   }
 
   async isLoggedIn() {
@@ -50,9 +43,7 @@ export class SettingsPage {
   }
 
   async isSettingsPageVisible() {
-    await expect(
-      this.page.getByRole('heading', { name: 'Team Settings' })
-    ).toBeVisible();
+    await expect(this.page.getByRole('heading', { name: 'Team Settings' })).toBeVisible();
   }
 
   async fillTeamName(teamName: string) {
@@ -60,33 +51,23 @@ export class SettingsPage {
   }
 
   async isSaveButtonDisabled() {
-    await expect(
-      this.page.getByRole('button', { name: 'Save Changes' })
-    ).toBeDisabled();
+    await expect(this.page.getByRole('button', { name: 'Save Changes' })).toBeDisabled();
   }
 
   async isTeamNameLengthErrorVisible() {
-    await expect(
-      await this.page.getByText('Team name should have at most 50 characters')
-    ).toBeVisible();
+    await expect(await this.page.getByText('Team name should have at most 50 characters')).toBeVisible();
   }
 
   async isTeamSlugLengthErrorVisible() {
-    await expect(
-      await this.page.getByText('Slug should have at most 50 characters')
-    ).toBeVisible();
+    await expect(await this.page.getByText('Slug should have at most 50 characters')).toBeVisible();
   }
 
   async isDomainLengthErrorVisible() {
-    await expect(
-      await this.page.getByText('Domain should have at most 253 characters')
-    ).toBeVisible();
+    await expect(await this.page.getByText('Domain should have at most 253 characters')).toBeVisible();
   }
 
   async isDomainInvalidErrorVisible() {
-    await expect(
-      await this.page.getByText('Enter a domain name in the format example.com')
-    ).toBeVisible();
+    await expect(await this.page.getByText('Enter a domain name in the format example.com')).toBeVisible();
   }
 
   async clickSaveButton() {
@@ -96,11 +77,7 @@ export class SettingsPage {
   async updateTeamName(newTeamName: string) {
     await this.fillTeamName(newTeamName);
     await this.clickSaveButton();
-    await expect(
-      this.page
-        .getByRole('status')
-        .and(this.page.getByText(this.updateTeamSuccessMessage))
-    ).toBeVisible();
+    await expect(this.page.getByRole('status').and(this.page.getByText(this.updateTeamSuccessMessage))).toBeVisible();
   }
 
   async fillTeamSlug(teamSlug: string) {
@@ -110,11 +87,7 @@ export class SettingsPage {
   async updateTeamSlug(newTeamSlug: string) {
     await this.fillTeamSlug(newTeamSlug);
     await this.clickSaveButton();
-    await expect(
-      this.page
-        .getByRole('status')
-        .and(this.page.getByText(this.updateTeamSuccessMessage))
-    ).toBeVisible();
+    await expect(this.page.getByRole('status').and(this.page.getByText(this.updateTeamSuccessMessage))).toBeVisible();
   }
 
   async fillDomain(domain: string) {
@@ -124,11 +97,7 @@ export class SettingsPage {
   async updateDomain(domain: string) {
     await this.fillDomain(domain);
     await this.clickSaveButton();
-    await expect(
-      this.page
-        .getByRole('status')
-        .and(this.page.getByText(this.updateTeamSuccessMessage))
-    ).toBeVisible();
+    await expect(this.page.getByRole('status').and(this.page.getByText(this.updateTeamSuccessMessage))).toBeVisible();
   }
 
   async checkTeamName(teamName: string) {
@@ -146,16 +115,10 @@ export class SettingsPage {
   async createNewTeam(teamName: string) {
     await this.page.getByText('Example').first().click();
     await this.newTeamMenu.click();
-    await expect(
-      this.page.getByRole('heading', { name: 'Create Team' })
-    ).toBeVisible();
+    await expect(this.page.getByRole('heading', { name: 'Create Team' })).toBeVisible();
     await this.newTeamNameInput.fill(teamName);
     await this.createTeamDialogButton.click();
-    await expect(
-      this.page
-        .getByRole('status')
-        .and(this.page.getByText(this.createTeamSuccessMessage))
-    ).toBeVisible();
+    await expect(this.page.getByRole('status').and(this.page.getByText(this.createTeamSuccessMessage))).toBeVisible();
   }
 
   async removeTeam(teamSlug: string) {
@@ -163,11 +126,7 @@ export class SettingsPage {
     this.removeTeamButton.click();
     await expect(this.removeTeamConfirmPrompt).toBeVisible();
     this.deleteButton.click();
-    await expect(
-      this.page
-        .getByRole('status')
-        .and(this.page.getByText(this.removeTeamSuccessMessage))
-    ).toBeVisible();
+    await expect(this.page.getByRole('status').and(this.page.getByText(this.removeTeamSuccessMessage))).toBeVisible();
   }
 
   async gotoSection(pageName: 'security' | 'api-keys') {

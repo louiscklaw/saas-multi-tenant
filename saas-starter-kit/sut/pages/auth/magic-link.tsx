@@ -1,9 +1,6 @@
 import MagicLink from '@/components/auth/MagicLink';
 import { AuthLayout } from '@/components/layouts';
-import type {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from 'next';
+import type { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { getCsrfToken } from 'next-auth/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import type { ReactElement } from 'react';
@@ -23,9 +20,7 @@ Login.getLayout = function getLayout(page: ReactElement) {
   );
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { locale } = context;
 
   return {

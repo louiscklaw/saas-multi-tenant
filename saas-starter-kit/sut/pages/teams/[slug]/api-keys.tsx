@@ -7,9 +7,7 @@ const APIKeys = ({ teamFeatures }) => {
   return <APIKeysContainer teamFeatures={teamFeatures} />;
 };
 
-export async function getServerSideProps({
-  locale,
-}: GetServerSidePropsContext) {
+export async function getServerSideProps({ locale }: GetServerSidePropsContext) {
   if (!env.teamFeatures.apiKey) {
     return {
       notFound: true,

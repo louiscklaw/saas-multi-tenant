@@ -4,10 +4,9 @@ import { prisma } from '@/lib/prisma';
 import { Invitation } from '@prisma/client';
 import { randomUUID } from 'crypto';
 
-export type TeamInvitation = Pick<
-  Invitation,
-  'id' | 'email' | 'role' | 'expires' | 'allowedDomains' | 'token'
-> & { url: string };
+export type TeamInvitation = Pick<Invitation, 'id' | 'email' | 'role' | 'expires' | 'allowedDomains' | 'token'> & {
+  url: string;
+};
 
 /*
 Bitmap Heap Scan on "Invitation"  (cost=4.16..9.51 rows=1 width=168) (actual time=0.133..0.138 rows=4 loops=1)
@@ -64,9 +63,7 @@ export const getInvitations = async (teamId: string, sentViaEmail: boolean) => {
   })) as (Invitation & { url: string })[];
 };
 
-export const getInvitation = async (
-  key: { token: string } | { id: string }
-) => {
+export const getInvitation = async (key: { token: string } | { id: string }) => {
   const invitation = await prisma.invitation.findUnique({
     where: key,
     include: {
@@ -88,10 +85,7 @@ export const getInvitation = async (
 };
 
 export const createInvitation = async (
-  params: Omit<
-    Invitation,
-    'id' | 'token' | 'expires' | 'createdAt' | 'updatedAt'
-  >
+  params: Omit<Invitation, 'id' | 'token' | 'expires' | 'createdAt' | 'updatedAt'>
 ) => {
   const data: Omit<Invitation, 'id' | 'createdAt' | 'updatedAt'> = {
     ...params,
@@ -104,9 +98,7 @@ export const createInvitation = async (
   });
 };
 
-export const deleteInvitation = async (
-  key: { token: string } | { id: string }
-) => {
+export const deleteInvitation = async (key: { token: string } | { id: string }) => {
   return await prisma.invitation.delete({
     where: key,
   });

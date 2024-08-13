@@ -14,11 +14,7 @@ export const createWebhook = async (appId: string, data: EndpointIn) => {
   return await svix?.endpoint.create(appId, data);
 };
 
-export const updateWebhook = async (
-  appId: string,
-  endpointId: string,
-  data: EndpointIn
-) => {
+export const updateWebhook = async (appId: string, endpointId: string, data: EndpointIn) => {
   return await svix?.endpoint.update(appId, endpointId, data);
 };
 
@@ -34,11 +30,7 @@ export const deleteWebhook = async (appId: string, endpointId: string) => {
   return await svix?.endpoint.delete(appId, endpointId);
 };
 
-export const sendEvent = async (
-  appId: string,
-  eventType: AppEvent,
-  payload: Record<string, unknown>
-) => {
+export const sendEvent = async (appId: string, eventType: AppEvent, payload: Record<string, unknown>) => {
   return await svix?.message.create(appId, {
     eventType,
     payload: {

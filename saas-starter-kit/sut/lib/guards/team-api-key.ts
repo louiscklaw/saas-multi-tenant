@@ -1,10 +1,7 @@
 import { getApiKeyById } from 'models/apiKey';
 import { ApiError } from '../errors';
 
-export const throwIfNoAccessToApiKey = async (
-  apiKeyId: string,
-  teamId: string
-) => {
+export const throwIfNoAccessToApiKey = async (apiKeyId: string, teamId: string) => {
   const apiKey = await getApiKeyById(apiKeyId);
 
   if (!apiKey) {
@@ -12,9 +9,6 @@ export const throwIfNoAccessToApiKey = async (
   }
 
   if (teamId !== apiKey.teamId) {
-    throw new ApiError(
-      403,
-      'You do not have permission to delete this API key'
-    );
+    throw new ApiError(403, 'You do not have permission to delete this API key');
   }
 };

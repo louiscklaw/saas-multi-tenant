@@ -7,10 +7,7 @@ type GuardOptions = {
 };
 
 // Throw if the user is not allowed to access given Directory connection.
-export const throwIfNoAccessToDirectory = async ({
-  teamId,
-  directoryId,
-}: GuardOptions) => {
+export const throwIfNoAccessToDirectory = async ({ teamId, directoryId }: GuardOptions) => {
   if (!directoryId) {
     return;
   }
@@ -23,8 +20,5 @@ export const throwIfNoAccessToDirectory = async ({
     return;
   }
 
-  throw new ApiError(
-    403,
-    `Forbidden. You don't have access to this directory connection.`
-  );
+  throw new ApiError(403, `Forbidden. You don't have access to this directory connection.`);
 };

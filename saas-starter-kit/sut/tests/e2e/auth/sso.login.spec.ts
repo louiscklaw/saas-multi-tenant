@@ -33,10 +33,7 @@ const test = base.extend<SSOLoginFixture>({
   },
 });
 
-test('Create SSO connection for team', async ({
-  loginPage,
-  ssoPageTeam: ssoPage,
-}) => {
+test('Create SSO connection for team', async ({ loginPage, ssoPageTeam: ssoPage }) => {
   await loginPage.goto();
   await loginPage.credentialLogin(user.email, user.password);
   await loginPage.loggedInCheck(team.slug);
@@ -57,20 +54,13 @@ test('Create a new team', async ({ settingsPage, loginPage }) => {
   await settingsPage.createNewTeam(secondTeam.name);
 });
 
-test('SSO login with 2 teams & one SSO connection', async ({
-  loginPage,
-  settingsPage,
-}) => {
+test('SSO login with 2 teams & one SSO connection', async ({ loginPage, settingsPage }) => {
   await loginPage.goto();
   await loginPage.ssoLogin(user.email);
   await settingsPage.isLoggedIn();
 });
 
-test('Create SSO connection for new team', async ({
-  loginPage,
-  ssoPageSecondTeam: ssoPage,
-  settingsPage,
-}) => {
+test('Create SSO connection for new team', async ({ loginPage, ssoPageSecondTeam: ssoPage, settingsPage }) => {
   await loginPage.goto();
   await loginPage.ssoLogin(user.email);
   await settingsPage.isLoggedIn();
@@ -79,10 +69,7 @@ test('Create SSO connection for new team', async ({
   await ssoPage.createSSOConnection({ metadataUrl: SSO_METADATA_URL[1] });
 });
 
-test('SSO login with 2 teams & two SSO connection', async ({
-  loginPage,
-  ssoPageSecondTeam: ssoPage,
-}) => {
+test('SSO login with 2 teams & two SSO connection', async ({ loginPage, ssoPageSecondTeam: ssoPage }) => {
   await loginPage.goto();
   await loginPage.ssoLogin(user.email, true);
 
@@ -96,11 +83,7 @@ test('SSO login with 2 teams & two SSO connection', async ({
   await ssoPage.checkEmptyConnectionList();
 });
 
-test('Delete SSO connection', async ({
-  loginPage,
-  ssoPageTeam: ssoPage,
-  settingsPage,
-}) => {
+test('Delete SSO connection', async ({ loginPage, ssoPageTeam: ssoPage, settingsPage }) => {
   await loginPage.goto();
   await loginPage.ssoLogin(user.email);
   await settingsPage.isLoggedIn();

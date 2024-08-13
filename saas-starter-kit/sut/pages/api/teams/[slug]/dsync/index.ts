@@ -8,10 +8,7 @@ import { dsyncManager } from '@/lib/jackson/dsync';
 
 const dsync = dsyncManager();
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
 
   try {

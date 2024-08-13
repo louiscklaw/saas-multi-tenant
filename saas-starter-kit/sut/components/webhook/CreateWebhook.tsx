@@ -22,10 +22,7 @@ const CreateWebhook = ({
   const { mutateWebhooks } = useWebhooks(team.slug);
   const { t } = useTranslation('common');
 
-  const onSubmit = async (
-    values: WebookFormSchema,
-    formikHelpers: FormikHelpers<WebookFormSchema>
-  ) => {
+  const onSubmit = async (values: WebookFormSchema, formikHelpers: FormikHelpers<WebookFormSchema>) => {
     const response = await fetch(`/api/teams/${team.slug}/webhooks`, {
       method: 'POST',
       headers: defaultHeaders,

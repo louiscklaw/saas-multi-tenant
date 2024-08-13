@@ -17,9 +17,10 @@ import Head from 'next/head';
 import { Loading } from '@/components/shared';
 import env from '@/lib/env';
 
-const Signup: NextPageWithLayout<
-  InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ authProviders, recaptchaSiteKey }) => {
+const Signup: NextPageWithLayout<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
+  authProviders,
+  recaptchaSiteKey,
+}) => {
   const router = useRouter();
   const { status } = useSession();
   const { t } = useTranslation('common');
@@ -56,16 +57,14 @@ const Signup: NextPageWithLayout<
           {authProviders.google && <GoogleButton />}
         </div>
 
-        {(authProviders.github || authProviders.google) &&
-          authProviders.credentials && <div className="divider">{t('or')}</div>}
+        {(authProviders.github || authProviders.google) && authProviders.credentials && (
+          <div className="divider">{t('or')}</div>
+        )}
 
         {authProviders.credentials && (
           <>
             {token ? (
-              <JoinWithInvitation
-                inviteToken={token}
-                recaptchaSiteKey={recaptchaSiteKey}
-              />
+              <JoinWithInvitation inviteToken={token} recaptchaSiteKey={recaptchaSiteKey} />
             ) : (
               <Join recaptchaSiteKey={recaptchaSiteKey} />
             )}
@@ -93,9 +92,7 @@ Signup.getLayout = function getLayout(page: ReactElement) {
   );
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { locale } = context;
 
   return {

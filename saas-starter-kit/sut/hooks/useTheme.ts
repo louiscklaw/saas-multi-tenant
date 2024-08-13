@@ -1,8 +1,4 @@
-import {
-  ComputerDesktopIcon,
-  MoonIcon,
-  SunIcon,
-} from '@heroicons/react/24/outline';
+import { ComputerDesktopIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 

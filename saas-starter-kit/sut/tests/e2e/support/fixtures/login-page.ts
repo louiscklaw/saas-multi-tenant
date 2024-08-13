@@ -45,9 +45,7 @@ export class LoginPage {
     this.welcomeBackHeading = this.page.getByText('Welcome back', {
       exact: true,
     });
-    this.multipleTeamErrorText = this.page.getByText(
-      'User belongs to multiple'
-    );
+    this.multipleTeamErrorText = this.page.getByText('User belongs to multiple');
     this.createNewAccountButton = this.page.getByRole('button', {
       name: 'Create a new account',
     });
@@ -57,9 +55,7 @@ export class LoginPage {
     this.createAccountButton = this.page.getByRole('button', {
       name: 'Create Account',
     });
-    this.successfullyCreatedText = this.page.getByText(
-      'You have successfully created'
-    );
+    this.successfullyCreatedText = this.page.getByText('You have successfully created');
     this.logInUsingExistingButton = this.page.getByRole('button', {
       name: 'Log in using an existing',
     });
@@ -100,9 +96,7 @@ export class LoginPage {
 
   async ssoLogin(email: string, errorCase = false) {
     await this.continueWithSSOLink.click();
-    await expect(
-      this.page.getByRole('heading', { name: 'Sign in with SAML SSO' })
-    ).toBeVisible();
+    await expect(this.page.getByRole('heading', { name: 'Sign in with SAML SSO' })).toBeVisible();
     await this.ssoEmailBox.fill(email);
     await this.continueWithSSOButton.click();
     if (!errorCase) {
@@ -122,9 +116,7 @@ export class LoginPage {
 
   async idpInitiatedLogin() {
     await this.page.goto(this.IDP_LOGIN_URL);
-    await this.page
-      .getByPlaceholder('https://sso.eu.boxyhq.com/api')
-      .fill(this.ACS_URL);
+    await this.page.getByPlaceholder('https://sso.eu.boxyhq.com/api').fill(this.ACS_URL);
     await this.idpSignInButton.click();
   }
 
@@ -168,12 +160,7 @@ export class LoginPage {
     await expect(this.successfullyCreatedText).toBeVisible();
   }
 
-  async createNewAccountViaInviteLink(
-    name: string,
-    email: string,
-    password: string,
-    invitingCompany: string
-  ) {
+  async createNewAccountViaInviteLink(name: string, email: string, password: string, invitingCompany: string) {
     await expect(this.invitationMessage(invitingCompany)).toBeVisible();
 
     await this.createNewAccountButton.click();
@@ -190,10 +177,6 @@ export class LoginPage {
   }
 
   async invalidDomainErrorVisible(email: string) {
-    await expect(
-      this.page.getByText(
-        `Your email address domain ${email.split('@')[1]} is not allowed`
-      )
-    ).toBeVisible();
+    await expect(this.page.getByText(`Your email address domain ${email.split('@')[1]} is not allowed`)).toBeVisible();
   }
 }

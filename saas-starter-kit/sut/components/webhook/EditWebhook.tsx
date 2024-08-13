@@ -36,18 +36,12 @@ const EditWebhook = ({
     return <Error message={isError.message} />;
   }
 
-  const onSubmit = async (
-    values: WebookFormSchema,
-    formikHelpers: FormikHelpers<WebookFormSchema>
-  ) => {
-    const response = await fetch(
-      `/api/teams/${team.slug}/webhooks/${endpoint.id}`,
-      {
-        method: 'PUT',
-        headers: defaultHeaders,
-        body: JSON.stringify(values),
-      }
-    );
+  const onSubmit = async (values: WebookFormSchema, formikHelpers: FormikHelpers<WebookFormSchema>) => {
+    const response = await fetch(`/api/teams/${team.slug}/webhooks/${endpoint.id}`, {
+      method: 'PUT',
+      headers: defaultHeaders,
+      body: JSON.stringify(values),
+    });
 
     const json = (await response.json()) as ApiResponse;
 

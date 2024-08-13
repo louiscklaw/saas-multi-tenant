@@ -20,14 +20,10 @@ const Members = ({ team }: { team: Team }) => {
   const { t } = useTranslation('common');
   const { canAccess } = useCanAccess();
   const [visible, setVisible] = useState(false);
-  const [selectedMember, setSelectedMember] =
-    useState<TeamMemberWithUser | null>(null);
-  const [confirmationDialogVisible, setConfirmationDialogVisible] =
-    useState(false);
+  const [selectedMember, setSelectedMember] = useState<TeamMemberWithUser | null>(null);
+  const [confirmationDialogVisible, setConfirmationDialogVisible] = useState(false);
 
-  const { isLoading, isError, members, mutateTeamMembers } = useTeamMembers(
-    team.slug
-  );
+  const { isLoading, isError, members, mutateTeamMembers } = useTeamMembers(team.slug);
 
   if (isLoading) {
     return <Loading />;
@@ -48,13 +44,10 @@ const Members = ({ team }: { team: Team }) => {
 
     const sp = new URLSearchParams({ memberId: member.userId });
 
-    const response = await fetch(
-      `/api/teams/${team.slug}/members?${sp.toString()}`,
-      {
-        method: 'DELETE',
-        headers: defaultHeaders,
-      }
-    );
+    const response = await fetch(`/api/teams/${team.slug}/members?${sp.toString()}`, {
+      method: 'DELETE',
+      headers: defaultHeaders,
+    });
 
     const json = (await response.json()) as ApiResponse;
 
@@ -68,15 +61,11 @@ const Members = ({ team }: { team: Team }) => {
   };
 
   const canUpdateRole = (member: TeamMember) => {
-    return (
-      session?.user.id != member.userId && canAccess('team_member', ['update'])
-    );
+    return session?.user.id != member.userId && canAccess('team_member', ['update']);
   };
 
   const canRemoveMember = (member: TeamMember) => {
-    return (
-      session?.user.id != member.userId && canAccess('team_member', ['delete'])
-    );
+    return session?.user.id != member.userId && canAccess('team_member', ['delete']);
   };
 
   const cols = [t('name'), t('email'), t('role')];
@@ -88,12 +77,8 @@ const Members = ({ team }: { team: Team }) => {
     <div className="space-y-3">
       <div className="flex justify-between items-center">
         <div className="space-y-3">
-          <h2 className="text-xl font-medium leading-none tracking-tight">
-            {t('members')}
-          </h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {t('members-description')}
-          </p>
+          <h2 className="text-xl font-medium leading-none tracking-tight">{t('members')}</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{t('members-description')}</p>
         </div>
         <Button color="primary" size="md" onClick={() => setVisible(!visible)}>
           {t('add-member')}

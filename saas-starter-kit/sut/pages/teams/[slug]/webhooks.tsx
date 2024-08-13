@@ -31,9 +31,7 @@ const WebhookList = ({ teamFeatures }) => {
   );
 };
 
-export async function getServerSideProps({
-  locale,
-}: GetServerSidePropsContext) {
+export async function getServerSideProps({ locale }: GetServerSidePropsContext) {
   if (!env.teamFeatures.webhook) {
     return {
       notFound: true,

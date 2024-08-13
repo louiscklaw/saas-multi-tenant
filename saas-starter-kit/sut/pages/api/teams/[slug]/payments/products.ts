@@ -7,10 +7,7 @@ import { getAllServices } from 'models/service';
 import { getAllPrices } from 'models/price';
 import { getByCustomerId } from 'models/subscription';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     switch (req.method) {
       case 'GET':

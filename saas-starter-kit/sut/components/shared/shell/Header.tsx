@@ -1,12 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 import { useSession } from 'next-auth/react';
-import {
-  ArrowRightOnRectangleIcon,
-  Bars3Icon,
-  SunIcon,
-  UserCircleIcon,
-} from '@heroicons/react/24/outline';
+import { ArrowRightOnRectangleIcon, Bars3Icon, SunIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import useTheme from 'hooks/useTheme';
 import env from '@/lib/env';
@@ -50,10 +45,7 @@ const Header = ({ setSidebarOpen }: HeaderProps) => {
                 >
                   {user.name}
                 </button>
-                <ChevronDownIcon
-                  className="ml-2 h-5 w-5 text-gray-400"
-                  aria-hidden="true"
-                />
+                <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />
               </span>
             </div>
             <ul
@@ -98,8 +90,7 @@ const Header = ({ setSidebarOpen }: HeaderProps) => {
                   onClick={() => signOut()}
                 >
                   <div className="flex items-center">
-                    <ArrowRightOnRectangleIcon className="w-5 h-5 mr-1" />{' '}
-                    {t('logout')}
+                    <ArrowRightOnRectangleIcon className="w-5 h-5 mr-1" /> {t('logout')}
                   </div>
                 </button>
               </li>

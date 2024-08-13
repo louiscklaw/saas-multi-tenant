@@ -19,8 +19,7 @@ const APIKeys = ({ team }: APIKeysProps) => {
   const { data, isLoading, error, mutate } = useAPIKeys(team.slug);
   const [selectedApiKey, setSelectedApiKey] = useState<ApiKey | null>(null);
   const [createModalVisible, setCreateModalVisible] = useState(false);
-  const [confirmationDialogVisible, setConfirmationDialogVisible] =
-    useState(false);
+  const [confirmationDialogVisible, setConfirmationDialogVisible] = useState(false);
 
   // Delete API Key
   const deleteApiKey = async (apiKey: ApiKey | null) => {
@@ -28,12 +27,9 @@ const APIKeys = ({ team }: APIKeysProps) => {
       return;
     }
 
-    const response = await fetch(
-      `/api/teams/${team.slug}/api-keys/${apiKey.id}`,
-      {
-        method: 'DELETE',
-      }
-    );
+    const response = await fetch(`/api/teams/${team.slug}/api-keys/${apiKey.id}`, {
+      method: 'DELETE',
+    });
 
     setSelectedApiKey(null);
     setConfirmationDialogVisible(false);
@@ -55,26 +51,15 @@ const APIKeys = ({ team }: APIKeysProps) => {
       <div className="space-y-3">
         <div className="flex justify-between items-center">
           <div className="space-y-3">
-            <h2 className="text-xl font-medium leading-none tracking-tight">
-              {t('api-keys')}
-            </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {t('api-keys-description')}
-            </p>
+            <h2 className="text-xl font-medium leading-none tracking-tight">{t('api-keys')}</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('api-keys-description')}</p>
           </div>
-          <Button
-            color="primary"
-            size="md"
-            onClick={() => setCreateModalVisible(true)}
-          >
+          <Button color="primary" size="md" onClick={() => setCreateModalVisible(true)}>
             {t('create-api-key')}
           </Button>
         </div>
         {apiKeys.length === 0 ? (
-          <EmptyState
-            title={t('no-api-key-title')}
-            description={t('api-key-description')}
-          />
+          <EmptyState title={t('no-api-key-title')} description={t('api-key-description')} />
         ) : (
           <>
             <Table
@@ -122,11 +107,7 @@ const APIKeys = ({ team }: APIKeysProps) => {
             </ConfirmationDialog>
           </>
         )}
-        <NewAPIKey
-          team={team}
-          createModalVisible={createModalVisible}
-          setCreateModalVisible={setCreateModalVisible}
-        />
+        <NewAPIKey team={team} createModalVisible={createModalVisible} setCreateModalVisible={setCreateModalVisible} />
       </div>
     </WithLoadingAndError>
   );

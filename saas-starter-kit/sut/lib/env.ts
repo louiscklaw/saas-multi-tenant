@@ -17,8 +17,7 @@ const env = {
   // NextAuth configuration
   nextAuth: {
     secret: process.env.NEXTAUTH_SECRET,
-    sessionStrategy: (process.env.NEXTAUTH_SESSION_STRATEGY ||
-      'jwt') as SessionStrategy,
+    sessionStrategy: (process.env.NEXTAUTH_SESSION_STRATEGY || 'jwt') as SessionStrategy,
   },
 
   // Svix
@@ -41,9 +40,7 @@ const env = {
 
   // Retraced configuration
   retraced: {
-    url: process.env.RETRACED_URL
-      ? `${process.env.RETRACED_URL}/auditlog`
-      : undefined,
+    url: process.env.RETRACED_URL ? `${process.env.RETRACED_URL}/auditlog` : undefined,
     apiKey: process.env.RETRACED_API_KEY,
     projectId: process.env.RETRACED_PROJECT_ID,
   },
@@ -78,8 +75,7 @@ const env = {
     token: process.env.NEXT_PUBLIC_MIXPANEL_TOKEN,
   },
 
-  disableNonBusinessEmailSignup:
-    process.env.DISABLE_NON_BUSINESS_EMAIL_SIGNUP === 'true',
+  disableNonBusinessEmailSignup: process.env.DISABLE_NON_BUSINESS_EMAIL_SIGNUP === 'true',
 
   authProviders: process.env.AUTH_PROVIDERS || 'github,credentials',
 
@@ -100,9 +96,7 @@ const env = {
     payments:
       process.env.FEATURE_TEAM_PAYMENTS === 'false'
         ? false
-        : Boolean(
-            process.env.STRIPE_SECRET_KEY && process.env.STRIPE_WEBHOOK_SECRET
-          ),
+        : Boolean(process.env.STRIPE_SECRET_KEY && process.env.STRIPE_WEBHOOK_SECRET),
     deleteTeam: process.env.FEATURE_TEAM_DELETION !== 'false',
   },
 

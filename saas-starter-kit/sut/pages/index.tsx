@@ -32,19 +32,13 @@ const Home: NextPageWithLayout = () => {
             <ul className="menu menu-horizontal flex items-center gap-2 sm:gap-4">
               {env.darkModeEnabled && (
                 <li>
-                  <button
-                    className="bg-none p-0 rounded-lg flex items-center justify-center"
-                    onClick={toggleTheme}
-                  >
+                  <button className="bg-none p-0 rounded-lg flex items-center justify-center" onClick={toggleTheme}>
                     <selectedTheme.icon className="w-5 h-5" />
                   </button>
                 </li>
               )}
               <li>
-                <Link
-                  href="/auth/join"
-                  className="btn btn-primary btn-md py-3 px-2 sm:px-4 text-white"
-                >
+                <Link href="/auth/join" className="btn btn-primary btn-md py-3 px-2 sm:px-4 text-white">
                   {t('sign-up')}
                 </Link>
               </li>
@@ -71,9 +65,7 @@ const Home: NextPageWithLayout = () => {
   );
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   // Redirect to login page if landing page is disabled
   if (env.hideLandingPage) {
     return {

@@ -7,16 +7,9 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { EndpointIn } from 'svix';
 import { recordMetric } from '@/lib/metrics';
 import env from '@/lib/env';
-import {
-  getWebhookSchema,
-  updateWebhookEndpointSchema,
-  validateWithSchema,
-} from '@/lib/zod';
+import { getWebhookSchema, updateWebhookEndpointSchema, validateWithSchema } from '@/lib/zod';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
 
   try {
@@ -75,13 +68,10 @@ const handlePUT = async (req: NextApiRequest, res: NextApiResponse) => {
   const teamMember = await throwIfNoTeamAccess(req, res);
   throwIfNotAllowed(teamMember, 'team_webhook', 'update');
 
-  const { name, url, eventTypes, endpointId } = validateWithSchema(
-    updateWebhookEndpointSchema,
-    {
-      ...req.query,
-      ...req.body,
-    }
-  );
+  const { name, url, eventTypes, endpointId } = validateWithSchema(updateWebhookEndpointSchema, {
+    ...req.query,
+    ...req.body,
+  });
 
   const app = await findOrCreateApp(teamMember.team.name, teamMember.team.id);
 

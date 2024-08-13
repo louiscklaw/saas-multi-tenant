@@ -4,9 +4,7 @@ const jackson = require('@boxyhq/saml-jackson');
 const readline = require('readline');
 const { Svix } = require('svix');
 
-const svix = process.env.SVIX_API_KEY
-  ? new Svix(`${process.env.SVIX_API_KEY}`)
-  : undefined;
+const svix = process.env.SVIX_API_KEY ? new Svix(`${process.env.SVIX_API_KEY}`) : undefined;
 
 const product = process.env.JACKSON_PRODUCT_ID || 'boxyhq';
 
@@ -418,12 +416,9 @@ async function getConnections(tenant) {
       product,
     });
 
-    const response = await fetch(
-      `${process.env.JACKSON_URL}/api/v1/dsync?${searchParams}`,
-      {
-        ...jacksonOptions,
-      }
-    );
+    const response = await fetch(`${process.env.JACKSON_URL}/api/v1/dsync?${searchParams}`, {
+      ...jacksonOptions,
+    });
 
     const { data, error } = await response.json();
 
@@ -435,11 +430,7 @@ async function getConnections(tenant) {
   } else {
     const { directorySyncController } = jacksonInstance;
 
-    const { data, error } =
-      await directorySyncController.directories.getByTenantAndProduct(
-        tenant,
-        product
-      );
+    const { data, error } = await directorySyncController.directories.getByTenantAndProduct(tenant, product);
 
     if (error) {
       throw new Error(error.message);
@@ -451,13 +442,10 @@ async function getConnections(tenant) {
 
 async function deleteConnection(directoryId) {
   if (useHostedJackson) {
-    const response = await fetch(
-      `${process.env.JACKSON_URL}/api/v1/dsync/${directoryId}`,
-      {
-        ...jacksonOptions,
-        method: 'DELETE',
-      }
-    );
+    const response = await fetch(`${process.env.JACKSON_URL}/api/v1/dsync/${directoryId}`, {
+      ...jacksonOptions,
+      method: 'DELETE',
+    });
 
     const { data, error } = await response.json();
 
@@ -469,8 +457,7 @@ async function deleteConnection(directoryId) {
   } else {
     const { directorySyncController } = jacksonInstance;
 
-    const { data, error } =
-      await directorySyncController.directories.delete(directoryId);
+    const { data, error } = await directorySyncController.directories.delete(directoryId);
 
     if (error) {
       throw new Error(error.message);
@@ -485,10 +472,7 @@ async function getSvixApplication(teamId) {
     const application = await svix.application.get(teamId);
     return application;
   } catch (ex) {
-    console.log(
-      'Error getting application:',
-      ex?.code === 404 ? 'Not found' : ex
-    );
+    console.log('Error getting application:', ex?.code === 404 ? 'Not found' : ex);
   }
 }
 
@@ -500,28 +484,22 @@ async function removeSvixApplication(teamId) {
   try {
     await svix.application.delete(teamId);
   } catch (ex) {
-    console.log(
-      'Error deleting application:',
-      ex?.code === 404 ? 'Not found' : ex
-    );
+    console.log('Error deleting application:', ex?.code === 404 ? 'Not found' : ex);
   }
   console.log('Svix application deleted:', teamId);
 }
 
 async function askForConfirmation(teamId) {
   return new Promise((resolve) => {
-    rl.question(
-      `Are you sure you want to delete team ${teamId}? (yes/no): `,
-      (answer) => {
-        if (answer.toLowerCase() === 'yes') {
-          resolve(true);
-        } else {
-          console.log('Deletion canceled.');
-          resolve(false);
-        }
-        rl.close();
+    rl.question(`Are you sure you want to delete team ${teamId}? (yes/no): `, (answer) => {
+      if (answer.toLowerCase() === 'yes') {
+        resolve(true);
+      } else {
+        console.log('Deletion canceled.');
+        resolve(false);
       }
-    );
+      rl.close();
+    });
   });
 }
 

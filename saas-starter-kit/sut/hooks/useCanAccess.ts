@@ -9,8 +9,7 @@ const useCanAccess = () => {
     return (permissions || []).some(
       (permission) =>
         permission.resource === resource &&
-        (permission.actions === '*' ||
-          permission.actions.some((action) => actions.includes(action)))
+        (permission.actions === '*' || permission.actions.some((action) => actions.includes(action)))
     );
   };
 

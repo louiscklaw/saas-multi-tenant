@@ -18,10 +18,7 @@ const Payments = ({ teamFeatures }) => {
   const { t } = useTranslation('common');
   const { canAccess } = useCanAccess();
   const { isLoading, isError, team } = useTeam();
-  const { data } = useSWR(
-    team?.slug ? `/api/teams/${team?.slug}/payments/products` : null,
-    fetcher
-  );
+  const { data } = useSWR(team?.slug ? `/api/teams/${team?.slug}/payments/products` : null, fetcher);
 
   if (isLoading) {
     return <Loading />;
@@ -42,11 +39,7 @@ const Payments = ({ teamFeatures }) => {
     <>
       {canAccess('team_payments', ['read']) && (
         <>
-          <TeamTab
-            activeTab="payments"
-            team={team}
-            teamFeatures={teamFeatures}
-          />
+          <TeamTab activeTab="payments" team={team} teamFeatures={teamFeatures} />
 
           <div className="flex gap-6 flex-col md:flex-row">
             <LinkToPortal team={team} />
@@ -64,9 +57,7 @@ const Payments = ({ teamFeatures }) => {
   );
 };
 
-export async function getServerSideProps({
-  locale,
-}: GetServerSidePropsContext) {
+export async function getServerSideProps({ locale }: GetServerSidePropsContext) {
   if (!env.teamFeatures.payments) {
     return {
       notFound: true,

@@ -37,9 +37,7 @@ test('Should be able to create DSync connection', async ({ dsyncPage }) => {
   await dsyncPage.verifyNewConnection(DIRECTORY_NAME);
 });
 
-test('Should be able to show existing DSync connections', async ({
-  dsyncPage,
-}) => {
+test('Should be able to show existing DSync connections', async ({ dsyncPage }) => {
   await dsyncPage.goto();
 
   await dsyncPage.verifyListedConnection(DIRECTORY_NAME);
@@ -55,9 +53,7 @@ test('Should be able to edit the DSync connection', async ({ dsyncPage }) => {
   await dsyncPage.verifyListedConnection(DIRECTORY_NAME_NEW);
 });
 
-test('Should be able to disable the DSync connection', async ({
-  dsyncPage,
-}) => {
+test('Should be able to disable the DSync connection', async ({ dsyncPage }) => {
   await dsyncPage.goto();
 
   await dsyncPage.disableConnection();

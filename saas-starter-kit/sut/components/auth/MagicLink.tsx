@@ -24,9 +24,7 @@ const MagicLink = ({ csrfToken }: MagicLinkProps) => {
 
   const params = invitation ? `?token=${invitation.token}` : '';
 
-  const callbackUrl = invitation
-    ? `/invitations/${invitation.token}`
-    : env.redirectIfAuthenticated;
+  const callbackUrl = invitation ? `/invitations/${invitation.token}` : env.redirectIfAuthenticated;
 
   const formik = useFormik({
     initialValues: {
@@ -97,10 +95,7 @@ const MagicLink = ({ csrfToken }: MagicLinkProps) => {
         </form>
         <div className="divider"></div>
         <div className="space-y-3">
-          <Link
-            href={`/auth/login/${params}`}
-            className="btn btn-outline w-full"
-          >
+          <Link href={`/auth/login/${params}`} className="btn btn-outline w-full">
             &nbsp;{t('sign-in-with-password')}
           </Link>
           <Link href="/auth/sso" className="btn btn-outline w-full">
@@ -110,10 +105,7 @@ const MagicLink = ({ csrfToken }: MagicLinkProps) => {
       </div>
       <p className="text-center text-sm text-gray-600 mt-3">
         {t('dont-have-an-account')}
-        <Link
-          href={`/auth/join${params}`}
-          className="font-medium text-indigo-600 hover:text-indigo-500"
-        >
+        <Link href={`/auth/join${params}`} className="font-medium text-indigo-600 hover:text-indigo-500">
           &nbsp;{t('create-a-free-account')}
         </Link>
       </p>

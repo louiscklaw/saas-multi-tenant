@@ -1,7 +1,4 @@
-import type {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from 'next';
+import type { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import env from '@/lib/env';
@@ -19,9 +16,7 @@ const Security = ({ sessionStrategy }: SecurityProps) => {
   );
 };
 
-export const getServerSideProps = async ({
-  locale,
-}: GetServerSidePropsContext) => {
+export const getServerSideProps = async ({ locale }: GetServerSidePropsContext) => {
   const { sessionStrategy } = env.nextAuth;
 
   return {

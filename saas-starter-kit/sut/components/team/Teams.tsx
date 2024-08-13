@@ -52,18 +52,10 @@ const Teams = () => {
       <div className="space-y-3">
         <div className="flex justify-between items-center">
           <div className="space-y-3">
-            <h2 className="text-xl font-medium leading-none tracking-tight">
-              {t('all-teams')}
-            </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {t('team-listed')}
-            </p>
+            <h2 className="text-xl font-medium leading-none tracking-tight">{t('all-teams')}</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('team-listed')}</p>
           </div>
-          <Button
-            color="primary"
-            size="md"
-            onClick={() => setCreateTeamVisible(!createTeamVisible)}
-          >
+          <Button color="primary" size="md" onClick={() => setCreateTeamVisible(!createTeamVisible)}>
             {t('create-team')}
           </Button>
         </div>
@@ -124,10 +116,7 @@ const Teams = () => {
         >
           {t('leave-team-confirmation')}
         </ConfirmationDialog>
-        <CreateTeam
-          visible={createTeamVisible}
-          setVisible={setCreateTeamVisible}
-        />
+        <CreateTeam visible={createTeamVisible} setVisible={setCreateTeamVisible} />
       </div>
     </WithLoadingAndError>
   );

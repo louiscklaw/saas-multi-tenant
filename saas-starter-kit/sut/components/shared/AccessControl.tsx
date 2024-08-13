@@ -7,11 +7,7 @@ interface AccessControlProps {
   actions: Action[];
 }
 
-export const AccessControl = ({
-  children,
-  resource,
-  actions,
-}: AccessControlProps) => {
+export const AccessControl = ({ children, resource, actions }: AccessControlProps) => {
   const { canAccess } = useCanAccess();
 
   if (!canAccess(resource, actions)) {

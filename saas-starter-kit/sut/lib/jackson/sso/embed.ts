@@ -1,7 +1,4 @@
-import type {
-  DelConnectionsQuery,
-  GetConnectionsQuery,
-} from '@boxyhq/saml-jackson';
+import type { DelConnectionsQuery, GetConnectionsQuery } from '@boxyhq/saml-jackson';
 
 import jackson from '@/lib/jackson';
 import { ApiError } from '@/lib/errors';
@@ -21,9 +18,7 @@ export class JacksonEmbedded implements JacksonSSO {
     if (isSAML) {
       return await apiController.createSAMLConnection(params);
     } else {
-      return await apiController.createOIDCConnection(
-        oidcMetadataParse(params)
-      );
+      return await apiController.createOIDCConnection(oidcMetadataParse(params));
     }
   }
 

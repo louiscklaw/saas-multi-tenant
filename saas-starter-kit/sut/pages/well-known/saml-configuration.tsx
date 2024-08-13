@@ -8,9 +8,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import type { NextPageWithLayout } from 'types';
 import env from '@/lib/env';
 
-const SPConfig: NextPageWithLayout<
-  InferGetStaticPropsType<typeof getServerSideProps>
-> = ({ config, jacksonEnv }) => {
+const SPConfig: NextPageWithLayout<InferGetStaticPropsType<typeof getServerSideProps>> = ({ config, jacksonEnv }) => {
   const { t } = useTranslation('common');
 
   useEffect(() => {
@@ -28,12 +26,8 @@ const SPConfig: NextPageWithLayout<
       <div className="mt-10 flex w-full justify-center px-5">
         <div className="w-full rounded border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800 md:w-1/2">
           <div className="flex flex-col space-y-3">
-            <h2 className="font-bold text-gray-700 md:text-xl">
-              {t('sp-saml-config-title')}
-            </h2>
-            <p className="text-sm leading-6 text-gray-800">
-              {t('sp-saml-config-description')}
-            </p>
+            <h2 className="font-bold text-gray-700 md:text-xl">{t('sp-saml-config-title')}</h2>
+            <p className="text-sm leading-6 text-gray-800">{t('sp-saml-config-description')}</p>
             <p className="text-sm leading-6 text-gray-600">
               <Trans
                 i18nKey="refer-to-provider-instructions"
@@ -55,16 +49,10 @@ const SPConfig: NextPageWithLayout<
           </div>
           <div className="mt-6 flex flex-col gap-6">
             <div className="form-control w-full">
-              <InputWithCopyButton
-                value={config.acsUrl}
-                label={t('sp-acs-url')}
-              />
+              <InputWithCopyButton value={config.acsUrl} label={t('sp-acs-url')} />
             </div>
             <div className="form-control w-full">
-              <InputWithCopyButton
-                value={config.entityId}
-                label={t('sp-entity-id')}
-              />
+              <InputWithCopyButton value={config.entityId} label={t('sp-entity-id')} />
             </div>
             <div className="form-control w-full">
               <div className="flex flex-col">
@@ -101,11 +89,7 @@ const SPConfig: NextPageWithLayout<
                     t={t}
                     components={{
                       downloadLink: (
-                        <Link
-                          href="/.well-known/saml.cer"
-                          className="underline underline-offset-4"
-                          target="_blank"
-                        >
+                        <Link href="/.well-known/saml.cer" className="underline underline-offset-4" target="_blank">
                           {t('download')}
                         </Link>
                       ),

@@ -21,12 +21,9 @@ interface RetracedEventsBrowserProps {
   header: string;
 }
 
-const RetracedEventsBrowser = dynamic<RetracedEventsBrowserProps>(
-  () => import('@retracedhq/logs-viewer'),
-  {
-    ssr: false,
-  }
-);
+const RetracedEventsBrowser = dynamic<RetracedEventsBrowserProps>(() => import('@retracedhq/logs-viewer'), {
+  ssr: false,
+});
 
 const Events: NextPageWithLayout<inferSSRProps<typeof getServerSideProps>> = ({
   auditLogToken,
@@ -78,18 +75,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { locale, req, res, query } = context;
 
   const session = await getSession(req, res);
-  const teamMember = await getTeamMember(
-    session?.user.id as string,
-    query.slug as string
-  );
+  const teamMember = await getTeamMember(session?.user.id as string, query.slug as string);
 
   try {
     throwIfNotAllowed(teamMember, 'team_audit_log', 'read');
 
-    const auditLogToken = await getViewerToken(
-      teamMember.team.id,
-      session?.user.id as string
-    );
+    const auditLogToken = await getViewerToken(teamMember.team.id, session?.user.id as string);
 
     return {
       props: {

@@ -24,10 +24,7 @@ async function seedUsers() {
 
   return newUsers;
 
-  async function createRandomUser(
-    email: string | undefined = undefined,
-    password: string | undefined = undefined
-  ) {
+  async function createRandomUser(email: string | undefined = undefined, password: string | undefined = undefined) {
     try {
       const originalPassword = password || faker.internet.password();
       email = email || faker.internet.email();

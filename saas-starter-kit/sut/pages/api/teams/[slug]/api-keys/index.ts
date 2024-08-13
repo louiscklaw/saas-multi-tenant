@@ -7,10 +7,7 @@ import env from '@/lib/env';
 import { ApiError } from '@/lib/errors';
 import { createApiKeySchema, validateWithSchema } from '@/lib/zod';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (!env.teamFeatures.apiKey) {
       throw new ApiError(404, 'Not Found');

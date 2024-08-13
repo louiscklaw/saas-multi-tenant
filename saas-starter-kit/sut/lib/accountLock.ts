@@ -59,9 +59,7 @@ export const sendLockoutEmail = async (user: User, resending = false) => {
     expires: new Date(Date.now() + UNLOCK_ACCOUNT_TOKEN_EXPIRATION),
   });
 
-  const subject = resending
-    ? `Unlock your ${app.name} account`
-    : `Your ${app.name} account has been locked`;
+  const subject = resending ? `Unlock your ${app.name} account` : `Your ${app.name} account has been locked`;
 
   const token = encodeURIComponent(verificationToken.token);
   const url = `${app.url}/auth/unlock-account?token=${token}`;

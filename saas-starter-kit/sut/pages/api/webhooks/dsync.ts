@@ -5,10 +5,7 @@ import env from '@/lib/env';
 import { ApiError } from '@/lib/errors';
 import { handleEvents } from '@/lib/jackson/dsyncEvents';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (req.method != 'POST') {
       throw new ApiError(400, `Method ${req.method} Not Allowed`);

@@ -2,8 +2,7 @@ import { Button } from 'react-daisyui';
 import Badge from '@/components/shared/Badge';
 import { useTranslation } from 'next-i18next';
 
-const trClass =
-  'border-b bg-white last:border-b-0 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800';
+const trClass = 'border-b bg-white last:border-b-0 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800';
 const tdClassBase = 'px-6 py-3 text-sm text-gray-500 dark:text-gray-400';
 const tdClass = `whitespace-nowrap ${tdClassBase}`;
 const tdClassWrap = `break-all ${tdClassBase}`;
@@ -50,10 +49,7 @@ export const TableBody = ({
     return (
       <tbody>
         <tr>
-          <td
-            colSpan={cols.length}
-            className="px-6 py-3 text-center text-sm text-gray-500"
-          >
+          <td colSpan={cols.length} className="px-6 py-3 text-center text-sm text-gray-500">
             {t('no-more-results')}
           </td>
         </tr>
@@ -71,9 +67,7 @@ export const TableBody = ({
                 <td
                   key={row.id + '-td-' + index}
                   className={`${cell.wrap ? tdClassWrap : tdClass}`}
-                  style={
-                    cell.minWidth ? { minWidth: `${cell.minWidth}px` } : {}
-                  }
+                  style={cell.minWidth ? { minWidth: `${cell.minWidth}px` } : {}}
                 >
                   {!cell.buttons || cell.buttons?.length === 0 ? null : (
                     <div className="flex space-x-2">
@@ -96,11 +90,7 @@ export const TableBody = ({
                     <span className="flex gap-3">
                       {cell.actions?.map((action: any, index: number) => {
                         return (
-                          <div
-                            key={row.id + '-diva-' + index}
-                            className="tooltip"
-                            data-tip={action.text}
-                          >
+                          <div key={row.id + '-diva-' + index} className="tooltip" data-tip={action.text}>
                             <button
                               key={row.id + '-action-' + index}
                               className={`py-2 ${action.destructive ? 'text-red-500 hover:text-red-900' : 'hover:text-green-400'}`}
@@ -113,9 +103,7 @@ export const TableBody = ({
                       })}
                     </span>
                   )}
-                  {cell.badge ? (
-                    <Badge color={cell.badge.color}>{cell.badge.text}</Badge>
-                  ) : null}
+                  {cell.badge ? <Badge color={cell.badge.color}>{cell.badge.text}</Badge> : null}
                   {cell.text ? cell.text : null}
                   {cell.element ? cell.element : null}
                 </td>

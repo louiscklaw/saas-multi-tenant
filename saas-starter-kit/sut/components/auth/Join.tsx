@@ -21,10 +21,7 @@ interface JoinProps {
 const JoinUserSchema = Yup.object().shape({
   name: Yup.string().required().max(maxLengthPolicies.name),
   email: Yup.string().required().email().max(maxLengthPolicies.email),
-  password: Yup.string()
-    .required()
-    .min(passwordPolicies.minLength)
-    .max(maxLengthPolicies.password),
+  password: Yup.string().required().min(passwordPolicies.minLength).max(maxLengthPolicies.password),
   team: Yup.string().required().min(3).max(maxLengthPolicies.team),
 });
 
@@ -126,21 +123,10 @@ const Join = ({ recaptchaSiteKey }: JoinProps) => {
             handlePasswordVisibility={handlePasswordVisibility}
           />
         </div>
-        <GoogleReCAPTCHA
-          recaptchaRef={recaptchaRef}
-          onChange={setRecaptchaToken}
-          siteKey={recaptchaSiteKey}
-        />
+        <GoogleReCAPTCHA recaptchaRef={recaptchaRef} onChange={setRecaptchaToken} siteKey={recaptchaSiteKey} />
       </div>
       <div className="mt-3 space-y-3">
-        <Button
-          type="submit"
-          color="primary"
-          loading={formik.isSubmitting}
-          active={formik.dirty}
-          fullWidth
-          size="md"
-        >
+        <Button type="submit" color="primary" loading={formik.isSubmitting} active={formik.dirty} fullWidth size="md">
           {t('create-account')}
         </Button>
         <AgreeMessage text={t('create-account')} />

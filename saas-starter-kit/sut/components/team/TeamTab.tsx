@@ -41,10 +41,7 @@ const TeamTab = ({ activeTab, team, heading, teamFeatures }: TeamTabProps) => {
     });
   }
 
-  if (
-    teamFeatures.sso &&
-    canAccess('team_sso', ['create', 'update', 'read', 'delete'])
-  ) {
+  if (teamFeatures.sso && canAccess('team_sso', ['create', 'update', 'read', 'delete'])) {
     navigations.push({
       name: 'Single Sign-On',
       href: `/teams/${team.slug}/sso`,
@@ -53,10 +50,7 @@ const TeamTab = ({ activeTab, team, heading, teamFeatures }: TeamTabProps) => {
     });
   }
 
-  if (
-    teamFeatures.dsync &&
-    canAccess('team_dsync', ['create', 'update', 'read', 'delete'])
-  ) {
+  if (teamFeatures.dsync && canAccess('team_dsync', ['create', 'update', 'read', 'delete'])) {
     navigations.push({
       name: 'Directory Sync',
       href: `/teams/${team.slug}/directory-sync`,
@@ -65,10 +59,7 @@ const TeamTab = ({ activeTab, team, heading, teamFeatures }: TeamTabProps) => {
     });
   }
 
-  if (
-    teamFeatures.auditLog &&
-    canAccess('team_audit_log', ['create', 'update', 'read', 'delete'])
-  ) {
+  if (teamFeatures.auditLog && canAccess('team_audit_log', ['create', 'update', 'read', 'delete'])) {
     navigations.push({
       name: 'Audit Logs',
       href: `/teams/${team.slug}/audit-logs`,
@@ -77,10 +68,7 @@ const TeamTab = ({ activeTab, team, heading, teamFeatures }: TeamTabProps) => {
     });
   }
 
-  if (
-    teamFeatures.payments &&
-    canAccess('team_payments', ['create', 'update', 'read', 'delete'])
-  ) {
+  if (teamFeatures.payments && canAccess('team_payments', ['create', 'update', 'read', 'delete'])) {
     navigations.push({
       name: 'Billing',
       href: `/teams/${team.slug}/billing`,
@@ -89,10 +77,7 @@ const TeamTab = ({ activeTab, team, heading, teamFeatures }: TeamTabProps) => {
     });
   }
 
-  if (
-    teamFeatures.webhook &&
-    canAccess('team_webhook', ['create', 'update', 'read', 'delete'])
-  ) {
+  if (teamFeatures.webhook && canAccess('team_webhook', ['create', 'update', 'read', 'delete'])) {
     navigations.push({
       name: 'Webhooks',
       href: `/teams/${team.slug}/webhooks`,
@@ -101,10 +86,7 @@ const TeamTab = ({ activeTab, team, heading, teamFeatures }: TeamTabProps) => {
     });
   }
 
-  if (
-    teamFeatures.apiKey &&
-    canAccess('team_api_key', ['create', 'update', 'read', 'delete'])
-  ) {
+  if (teamFeatures.apiKey && canAccess('team_api_key', ['create', 'update', 'read', 'delete'])) {
     navigations.push({
       name: 'API Keys',
       href: `/teams/${team.slug}/api-keys`,
@@ -115,13 +97,8 @@ const TeamTab = ({ activeTab, team, heading, teamFeatures }: TeamTabProps) => {
 
   return (
     <div className="flex flex-col pb-6">
-      <h2 className="text-xl font-semibold mb-2">
-        {heading ? heading : team.name}
-      </h2>
-      <nav
-        className=" flex flex-wrap border-b border-gray-300"
-        aria-label="Tabs"
-      >
+      <h2 className="text-xl font-semibold mb-2">{heading ? heading : team.name}</h2>
+      <nav className=" flex flex-wrap border-b border-gray-300" aria-label="Tabs">
         {navigations.map((menu) => {
           return (
             <Link

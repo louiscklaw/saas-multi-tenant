@@ -9,10 +9,7 @@ interface EmailDomainMismatchProps {
   emailDomain: string;
 }
 
-const EmailDomainMismatch = ({
-  invitation,
-  emailDomain,
-}: EmailDomainMismatchProps) => {
+const EmailDomainMismatch = ({ invitation, emailDomain }: EmailDomainMismatchProps) => {
   const { t } = useTranslation('common');
   const { allowedDomains } = invitation;
 
@@ -23,12 +20,8 @@ const EmailDomainMismatch = ({
 
   return (
     <>
-      <p className="text-sm text-center">
-        {t('email-domain-not-allowed', { emailDomain, allowedDomainsString })}
-      </p>
-      <p className="text-sm text-center">
-        {t('accept-invitation-email-domain-instruction')}
-      </p>
+      <p className="text-sm text-center">{t('email-domain-not-allowed', { emailDomain, allowedDomainsString })}</p>
+      <p className="text-sm text-center">{t('accept-invitation-email-domain-instruction')}</p>
       <Button
         fullWidth
         color="error"

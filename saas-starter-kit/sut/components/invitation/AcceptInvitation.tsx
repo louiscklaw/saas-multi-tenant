@@ -16,14 +16,11 @@ const AcceptInvitation = ({ invitation }: AcceptInvitationProps) => {
   const { t } = useTranslation('common');
 
   const acceptInvitation = async () => {
-    const response = await fetch(
-      `/api/teams/${invitation.team.slug}/invitations`,
-      {
-        method: 'PUT',
-        headers: defaultHeaders,
-        body: JSON.stringify({ inviteToken: invitation.token }),
-      }
-    );
+    const response = await fetch(`/api/teams/${invitation.team.slug}/invitations`, {
+      method: 'PUT',
+      headers: defaultHeaders,
+      body: JSON.stringify({ inviteToken: invitation.token }),
+    });
 
     if (!response.ok) {
       const result = (await response.json()) as ApiResponse;

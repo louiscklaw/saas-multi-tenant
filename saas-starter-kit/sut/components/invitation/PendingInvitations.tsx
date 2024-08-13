@@ -11,11 +11,9 @@ import { TeamInvitation } from 'models/invitation';
 import { Table } from '@/components/shared/table/Table';
 
 const PendingInvitations = ({ team }: { team: Team }) => {
-  const [selectedInvitation, setSelectedInvitation] =
-    useState<TeamInvitation | null>(null);
+  const [selectedInvitation, setSelectedInvitation] = useState<TeamInvitation | null>(null);
 
-  const [confirmationDialogVisible, setConfirmationDialogVisible] =
-    useState(false);
+  const [confirmationDialogVisible, setConfirmationDialogVisible] = useState(false);
 
   const { isLoading, isError, invitations, mutateInvitation } = useInvitations({
     slug: team.slug,
@@ -39,13 +37,10 @@ const PendingInvitations = ({ team }: { team: Team }) => {
 
     const sp = new URLSearchParams({ id: invitation.id });
 
-    const response = await fetch(
-      `/api/teams/${team.slug}/invitations?${sp.toString()}`,
-      {
-        method: 'DELETE',
-        headers: defaultHeaders,
-      }
-    );
+    const response = await fetch(`/api/teams/${team.slug}/invitations?${sp.toString()}`, {
+      method: 'DELETE',
+      headers: defaultHeaders,
+    });
 
     const json = (await response.json()) as ApiResponse<unknown>;
 
@@ -65,12 +60,8 @@ const PendingInvitations = ({ team }: { team: Team }) => {
   return (
     <div className="space-y-3">
       <div className="space-y-3">
-        <h2 className="text-xl font-medium leading-none tracking-tight">
-          {t('pending-invitations')}
-        </h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          {t('description-invitations')}
-        </p>
+        <h2 className="text-xl font-medium leading-none tracking-tight">{t('pending-invitations')}</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400">{t('description-invitations')}</p>
       </div>
 
       <Table

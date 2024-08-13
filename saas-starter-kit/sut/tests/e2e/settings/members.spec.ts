@@ -57,10 +57,7 @@ const invalidDomainUser = {
   password: 'password',
 };
 
-test('Should be able to get the list of members', async ({
-  loginPage,
-  memberPage,
-}) => {
+test('Should be able to get the list of members', async ({ loginPage, memberPage }) => {
   await loginPage.goto();
   await loginPage.credentialLogin(user.email, user.password);
   await loginPage.loggedInCheck(team.slug);
@@ -69,10 +66,7 @@ test('Should be able to get the list of members', async ({
   await memberPage.teamMemberExists(user.name, user.email, 'OWNER');
 });
 
-test('Should be able to invite a new member', async ({
-  loginPage,
-  memberPage,
-}) => {
+test('Should be able to invite a new member', async ({ loginPage, memberPage }) => {
   await loginPage.goto();
   await loginPage.credentialLogin(user.email, user.password);
   await loginPage.loggedInCheck(team.slug);
@@ -83,16 +77,11 @@ test('Should be able to invite a new member', async ({
   await memberPage.checkPendingInvitation(invitedUser.email, testRole);
 });
 
-test('New member should be able to accept the invitation', async ({
-  loginPage,
-}) => {
+test('New member should be able to accept the invitation', async ({ loginPage }) => {
   const invitation = await getAndVerifyInvitation(invitedUser.email);
   const invitationLink = `${process.env.APP_URL}/invitations/${invitation?.token}`;
   await loginPage.gotoInviteLink(invitationLink, team.name);
-  await loginPage.createNewAccountViaInvite(
-    invitedUser.name,
-    invitedUser.password
-  );
+  await loginPage.createNewAccountViaInvite(invitedUser.name, invitedUser.password);
 
   await loginPage.credentialLogin(invitedUser.email, invitedUser.password);
   await loginPage.invitationAcceptPromptVisible(team.name);
@@ -117,12 +106,8 @@ test('Existing user should be able to accept the invitation', async ({
 
   await memberPage.pendingMemberVisible();
 
-  await expect(
-    page.getByRole('cell', { name: `U ${secondUser.email}` })
-  ).toBeVisible();
-  await expect(
-    page.getByRole('cell', { name: testRole, exact: true })
-  ).toHaveCount(2);
+  await expect(page.getByRole('cell', { name: `U ${secondUser.email}` })).toBeVisible();
+  await expect(page.getByRole('cell', { name: testRole, exact: true })).toHaveCount(2);
 
   const invitation = await getAndVerifyInvitation(secondUser.email);
 
@@ -134,10 +119,7 @@ test('Existing user should be able to accept the invitation', async ({
   const loginPage1 = new LoginPage(page1);
   await loginPage1.gotoInviteLink(invitationLink, team.name);
 
-  await loginPage1.acceptInvitationWithExistingAccount(
-    secondUser.email,
-    secondUser.password
-  );
+  await loginPage1.acceptInvitationWithExistingAccount(secondUser.email, secondUser.password);
 
   await loginPage1.invitationAcceptPromptVisible(team.name);
 
@@ -145,10 +127,7 @@ test('Existing user should be able to accept the invitation', async ({
   await page1.close();
 });
 
-test('Should be able to create invite using domain', async ({
-  loginPage,
-  memberPage,
-}) => {
+test('Should be able to create invite using domain', async ({ loginPage, memberPage }) => {
   await loginPage.goto();
   await loginPage.credentialLogin(user.email, user.password);
   await loginPage.loggedInCheck(team.slug);
@@ -162,12 +141,7 @@ test('Should be able to create invite using domain', async ({
 
   const loginPage1 = new LoginPage(page1);
   await loginPage1.gotoInviteLink(domainInviteLink, team.name);
-  await loginPage1.createNewAccountViaInviteLink(
-    domainUser.name,
-    domainUser.email,
-    domainUser.password,
-    team.name
-  );
+  await loginPage1.createNewAccountViaInviteLink(domainUser.name, domainUser.email, domainUser.password, team.name);
 
   await loginPage1.credentialLogin(domainUser.email, domainUser.password);
 
@@ -176,9 +150,7 @@ test('Should be able to create invite using domain', async ({
   await page1.close();
 });
 
-test('Should not allow to invite a member with invalid domain', async ({
-  loginPage,
-}) => {
+test('Should not allow to invite a member with invalid domain', async ({ loginPage }) => {
   await loginPage.gotoInviteLink(domainInviteLink, team.name);
   await loginPage.createNewAccountViaInviteLink(
     invalidDomainUser.name,
@@ -186,10 +158,7 @@ test('Should not allow to invite a member with invalid domain', async ({
     invalidDomainUser.password,
     team.name
   );
-  await loginPage.credentialLogin(
-    invalidDomainUser.email,
-    invalidDomainUser.password
-  );
+  await loginPage.credentialLogin(invalidDomainUser.email, invalidDomainUser.password);
   await loginPage.invitationAcceptPromptVisible(team.name);
   await loginPage.invalidDomainErrorVisible(invalidDomainUser.email);
 });
@@ -203,10 +172,7 @@ test('Should be able to remove a member', async ({ loginPage, memberPage }) => {
   await memberPage.removeMember();
 });
 
-test('Should not allow invalid email to be invited', async ({
-  loginPage,
-  memberPage,
-}) => {
+test('Should not allow invalid email to be invited', async ({ loginPage, memberPage }) => {
   await loginPage.goto();
   await loginPage.credentialLogin(user.email, user.password);
   await loginPage.loggedInCheck(team.slug);
@@ -217,10 +183,7 @@ test('Should not allow invalid email to be invited', async ({
   await memberPage.isInviteButtonDisabled();
 });
 
-test('Should not allow email with invalid length', async ({
-  loginPage,
-  memberPage,
-}) => {
+test('Should not allow email with invalid length', async ({ loginPage, memberPage }) => {
   await loginPage.goto();
   await loginPage.credentialLogin(user.email, user.password);
   await loginPage.loggedInCheck(team.slug);

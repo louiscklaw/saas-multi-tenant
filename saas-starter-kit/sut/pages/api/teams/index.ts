@@ -6,10 +6,7 @@ import { recordMetric } from '@/lib/metrics';
 import { createTeamSchema, validateWithSchema } from '@/lib/zod';
 import { getCurrentUser } from 'models/user';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
 
   try {

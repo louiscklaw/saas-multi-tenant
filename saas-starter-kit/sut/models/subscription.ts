@@ -53,9 +53,7 @@ export const getByCustomerId = async (customerId: string) => {
   });
 };
 
-export const getBySubscriptionId = async (
-  subscriptionId: string
-): Promise<Subscription | null> => {
+export const getBySubscriptionId = async (subscriptionId: string): Promise<Subscription | null> => {
   return await prisma.subscription.findUnique({
     where: {
       id: subscriptionId,

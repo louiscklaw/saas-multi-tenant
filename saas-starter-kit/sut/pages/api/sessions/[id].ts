@@ -3,10 +3,7 @@ import { getSession } from '@/lib/session';
 import { deleteSession, findFirstSessionOrThrown } from 'models/session';
 import { validateWithSchema, deleteSessionSchema } from '@/lib/zod';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     switch (req.method) {
       case 'DELETE':

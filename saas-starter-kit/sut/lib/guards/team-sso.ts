@@ -22,10 +22,7 @@ export const extractClientId = (req: NextApiRequest) => {
 };
 
 // Throw if the user is not allowed to access given SSO connection.
-export const throwIfNoAccessToConnection = async ({
-  teamId,
-  clientId,
-}: GuardOptions) => {
+export const throwIfNoAccessToConnection = async ({ teamId, clientId }: GuardOptions) => {
   if (!clientId) {
     return;
   }
@@ -44,8 +41,5 @@ export const throwIfNoAccessToConnection = async ({
     return;
   }
 
-  throw new ApiError(
-    403,
-    `Forbidden. You don't have access to this sso connection.`
-  );
+  throw new ApiError(403, `Forbidden. You don't have access to this sso connection.`);
 };

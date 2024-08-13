@@ -20,16 +20,11 @@ const Webhooks = ({ team }: { team: Team }) => {
   const [updateWebhookVisible, setUpdateWebhookVisible] = useState(false);
   const [endpoint, setEndpoint] = useState<EndpointOut | null>(null);
 
-  const [confirmationDialogVisible, setConfirmationDialogVisible] =
-    React.useState(false);
+  const [confirmationDialogVisible, setConfirmationDialogVisible] = React.useState(false);
 
-  const [selectedWebhook, setSelectedWebhook] = useState<EndpointOut | null>(
-    null
-  );
+  const [selectedWebhook, setSelectedWebhook] = useState<EndpointOut | null>(null);
 
-  const { isLoading, isError, webhooks, mutateWebhooks } = useWebhooks(
-    team.slug
-  );
+  const { isLoading, isError, webhooks, mutateWebhooks } = useWebhooks(team.slug);
 
   const deleteWebhook = async (webhook: EndpointOut | null) => {
     if (!webhook) {
@@ -38,13 +33,10 @@ const Webhooks = ({ team }: { team: Team }) => {
 
     const sp = new URLSearchParams({ webhookId: webhook.id });
 
-    const response = await fetch(
-      `/api/teams/${team.slug}/webhooks?${sp.toString()}`,
-      {
-        method: 'DELETE',
-        headers: defaultHeaders,
-      }
-    );
+    const response = await fetch(`/api/teams/${team.slug}/webhooks?${sp.toString()}`, {
+      method: 'DELETE',
+      headers: defaultHeaders,
+    });
 
     const json = (await response.json()) as ApiResponse;
 
@@ -62,18 +54,10 @@ const Webhooks = ({ team }: { team: Team }) => {
       <div className="space-y-3">
         <div className="flex justify-between items-center">
           <div className="space-y-3">
-            <h2 className="text-xl font-medium leading-none tracking-tight">
-              {t('webhooks')}
-            </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {t('webhooks-description')}
-            </p>
+            <h2 className="text-xl font-medium leading-none tracking-tight">{t('webhooks')}</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('webhooks-description')}</p>
           </div>
-          <Button
-            color="primary"
-            size="md"
-            onClick={() => setCreateWebhookVisible(!createWebhookVisible)}
-          >
+          <Button color="primary" size="md" onClick={() => setCreateWebhookVisible(!createWebhookVisible)}>
             {t('add-webhook')}
           </Button>
         </div>
@@ -107,9 +91,7 @@ const Webhooks = ({ team }: { team: Team }) => {
                                 text: t('edit'),
                                 onClick: () => {
                                   setEndpoint(webhook);
-                                  setUpdateWebhookVisible(
-                                    !updateWebhookVisible
-                                  );
+                                  setUpdateWebhookVisible(!updateWebhookVisible);
                                 },
                               },
                               {
@@ -147,11 +129,7 @@ const Webhooks = ({ team }: { team: Team }) => {
       >
         {t('delete-webhook-warning')}
       </ConfirmationDialog>
-      <CreateWebhook
-        visible={createWebhookVisible}
-        setVisible={setCreateWebhookVisible}
-        team={team}
-      />
+      <CreateWebhook visible={createWebhookVisible} setVisible={setCreateWebhookVisible} team={team} />
     </WithLoadingAndError>
   );
 };

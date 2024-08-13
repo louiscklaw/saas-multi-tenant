@@ -1,8 +1,4 @@
-import type {
-  NextApiRequest,
-  NextApiResponse,
-  GetServerSidePropsContext,
-} from 'next';
+import type { NextApiRequest, NextApiResponse, GetServerSidePropsContext } from 'next';
 import { Account, NextAuthOptions, Profile, User } from 'next-auth';
 import BoxyHQSAMLProvider from 'next-auth/providers/boxyhq-saml';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -26,11 +22,7 @@ import { prisma } from '@/lib/prisma';
 import { isAuthProviderEnabled } from '@/lib/auth';
 import { validateRecaptcha } from '@/lib/recaptcha';
 import { sendMagicLink } from '@/lib/email/sendMagicLink';
-import {
-  clearLoginAttempts,
-  exceededLoginAttemptsThreshold,
-  incrementLoginAttempts,
-} from '@/lib/accountLock';
+import { clearLoginAttempts, exceededLoginAttemptsThreshold, incrementLoginAttempts } from '@/lib/accountLock';
 import { slackNotify } from './slack';
 import { maxLengthPolicies } from '@/lib/common';
 import { forceConsume } from '@/lib/server-common';
@@ -40,8 +32,7 @@ const providers: Provider[] = [];
 const sessionMaxAge = 30 * 24 * 60 * 60; // 30 days
 const useSecureCookie = env.appUrl.startsWith('https://');
 
-export const sessionTokenCookieName =
-  (useSecureCookie ? '__Secure-' : '') + 'next-auth.session-token';
+export const sessionTokenCookieName = (useSecureCookie ? '__Secure-' : '') + 'next-auth.session-token';
 
 if (isAuthProviderEnabled('credentials')) {
   providers.push(
@@ -79,15 +70,10 @@ if (isAuthProviderEnabled('credentials')) {
           throw new Error('confirm-your-email');
         }
 
-        const hasValidPassword = await verifyPassword(
-          password,
-          user?.password as string
-        );
+        const hasValidPassword = await verifyPassword(password, user?.password as string);
 
         if (!hasValidPassword) {
-          if (
-            exceededLoginAttemptsThreshold(await incrementLoginAttempts(user))
-          ) {
+          if (exceededLoginAttemptsThreshold(await incrementLoginAttempts(user))) {
             throw new Error('exceeded-login-attempts');
           }
 
@@ -157,9 +143,7 @@ if (isAuthProviderEnabled('idp-initiated')) {
           return null;
         }
 
-        const samlLoginUrl = env.jackson.selfHosted
-          ? env.jackson.url
-          : env.appUrl;
+        const samlLoginUrl = env.jackson.selfHosted ? env.jackson.url : env.appUrl;
 
         const res = await fetch(`${samlLoginUrl}/api/oauth/token`, {
           method: 'POST',
@@ -200,9 +184,7 @@ if (isAuthProviderEnabled('idp-initiated')) {
 
         if (profile?.id && profile?.email) {
           return {
-            name: [profile.firstName, profile.lastName]
-              .filter(Boolean)
-              .join(' '),
+            name: [profile.firstName, profile.lastName].filter(Boolean).join(' '),
             image: null,
             ...profile,
           };
@@ -366,10 +348,7 @@ export const getAuthOptions = (
           user.name = user.name.substring(0, maxLengthPolicies.name);
         }
         if (session?.user?.name) {
-          session.user.name = session.user.name.substring(
-            0,
-            maxLengthPolicies.name
-          );
+          session.user.name = session.user.name.substring(0, maxLengthPolicies.name);
         }
 
         return session;
@@ -443,10 +422,7 @@ const linkToTeam = async (profile: Profile, userId: string) => {
     }
 
     // Owner > Admin > Member
-    if (
-      role.toUpperCase() === Role.ADMIN &&
-      userRole.toUpperCase() !== Role.OWNER.toUpperCase()
-    ) {
+    if (role.toUpperCase() === Role.ADMIN && userRole.toUpperCase() !== Role.OWNER.toUpperCase()) {
       userRole = Role.ADMIN;
       continue;
     }

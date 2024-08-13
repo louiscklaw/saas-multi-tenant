@@ -5,10 +5,7 @@ import { getUser } from 'models/user';
 import { createVerificationToken } from 'models/verificationToken';
 import { resendEmailToken, validateWithSchema } from '@/lib/zod';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     switch (req.method) {
       case 'POST':

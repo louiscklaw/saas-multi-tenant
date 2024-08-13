@@ -2,10 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import jackson from '@/lib/jackson';
 import env from '@/lib/env';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
     throw { message: 'Method not allowed', statusCode: 405 };
   }
@@ -18,8 +15,5 @@ export default async function handler(
     return;
   }
 
-  res
-    .status(200)
-    .setHeader('Content-Type', 'application/x-x509-ca-cert')
-    .send(config.publicKey);
+  res.status(200).setHeader('Content-Type', 'application/x-x509-ca-cert').send(config.publicKey);
 }

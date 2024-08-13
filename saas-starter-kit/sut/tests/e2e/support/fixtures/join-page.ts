@@ -23,15 +23,12 @@ export class JoinPage {
     this.createAccountButton = page.getByRole('button', {
       name: 'Create Account',
     });
-    this.createAccountSuccessMessage =
-      'You have successfully created your account.';
+    this.createAccountSuccessMessage = 'You have successfully created your account.';
   }
 
   async goto() {
     await this.page.goto('/auth/join');
-    await expect(
-      this.page.getByRole('heading', { name: 'Get started' })
-    ).toBeVisible();
+    await expect(this.page.getByRole('heading', { name: 'Get started' })).toBeVisible();
   }
 
   async signUp() {
@@ -42,9 +39,7 @@ export class JoinPage {
     await this.createAccountButton.click();
     await this.page.waitForURL('/auth/login');
     await expect(
-      this.page
-        .getByRole('status')
-        .and(this.page.getByText(this.createAccountSuccessMessage))
+      this.page.getByRole('status').and(this.page.getByText(this.createAccountSuccessMessage))
     ).toBeVisible();
   }
 }

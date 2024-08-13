@@ -33,8 +33,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     }
   }, []);
 
-  const getLayout =
-    Component.getLayout || ((page) => <AccountLayout>{page}</AccountLayout>);
+  const getLayout = Component.getLayout || ((page) => <AccountLayout>{page}</AccountLayout>);
 
   return (
     <>

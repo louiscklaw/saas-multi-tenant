@@ -37,16 +37,8 @@ const TeamSSO = ({ teamFeatures, SPConfigURL }) => {
           patch: `/api/teams/${team.slug}/sso`,
           delete: `/api/teams/${team.slug}/sso`,
         }}
-        successCallback={({
-          operation,
-          connectionIsSAML,
-          connectionIsOIDC,
-        }) => {
-          const ssoType = connectionIsSAML
-            ? 'SAML'
-            : connectionIsOIDC
-              ? 'OIDC'
-              : '';
+        successCallback={({ operation, connectionIsSAML, connectionIsOIDC }) => {
+          const ssoType = connectionIsSAML ? 'SAML' : connectionIsOIDC ? 'OIDC' : '';
           if (operation === 'CREATE') {
             toast.success(`${ssoType} connection created successfully.`);
           } else if (operation === 'UPDATE') {
@@ -71,9 +63,7 @@ const TeamSSO = ({ teamFeatures, SPConfigURL }) => {
   );
 };
 
-export async function getServerSideProps({
-  locale,
-}: GetServerSidePropsContext) {
+export async function getServerSideProps({ locale }: GetServerSidePropsContext) {
   if (!env.teamFeatures.sso) {
     return {
       notFound: true,

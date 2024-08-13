@@ -12,10 +12,7 @@ interface Props {
 const useInvitations = ({ slug, sentViaEmail }: Props) => {
   const url = `/api/teams/${slug}/invitations?sentViaEmail=${sentViaEmail}`;
 
-  const { data, error, isLoading } = useSWR<ApiResponse<TeamInvitation[]>>(
-    url,
-    fetcher
-  );
+  const { data, error, isLoading } = useSWR<ApiResponse<TeamInvitation[]>>(url, fetcher);
 
   const mutateInvitation = async () => {
     mutate(url);

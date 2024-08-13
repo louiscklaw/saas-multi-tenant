@@ -13,11 +13,7 @@ export const sendVerificationEmail = async ({
   verificationToken: VerificationToken;
 }) => {
   const subject = `Confirm your ${app.name} account`;
-  const verificationLink = `${
-    env.appUrl
-  }/auth/verify-email-token?token=${encodeURIComponent(
-    verificationToken.token
-  )}`;
+  const verificationLink = `${env.appUrl}/auth/verify-email-token?token=${encodeURIComponent(verificationToken.token)}`;
 
   const html = render(VerificationEmail({ subject, verificationLink }));
 

@@ -11,12 +11,8 @@ export class SecurityPage {
     this.otherSessionLabel = this.page.getByText('Other', {
       exact: true,
     });
-    this.removeCurrentSessionButton = this.page
-      .getByRole('row', { name: 'This browser Remove' })
-      .getByRole('button');
-    this.removeButton = this.page
-      .getByLabel('Modal')
-      .getByRole('button', { name: 'Remove' });
+    this.removeCurrentSessionButton = this.page.getByRole('row', { name: 'This browser Remove' }).getByRole('button');
+    this.removeButton = this.page.getByLabel('Modal').getByRole('button', { name: 'Remove' });
   }
 
   async checkCurrentSession() {

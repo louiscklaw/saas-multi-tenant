@@ -19,9 +19,7 @@ const TeamDropdown = () => {
   const { data } = useSession();
   const { t } = useTranslation('common');
 
-  const currentTeam = (teams || []).find(
-    (team) => team.slug === router.query.slug
-  );
+  const currentTeam = (teams || []).find((team) => team.slug === router.query.slug);
 
   const menus = [
     {
@@ -72,11 +70,7 @@ const TeamDropdown = () => {
         tabIndex={0}
         className="border border-gray-300 dark:border-gray-600 flex h-10 items-center px-4 justify-between cursor-pointer rounded text-sm font-bold"
       >
-        {currentTeam?.name ||
-          data?.user?.name?.substring(
-            0,
-            maxLengthPolicies.nameShortDisplay
-          )}{' '}
+        {currentTeam?.name || data?.user?.name?.substring(0, maxLengthPolicies.nameShortDisplay)}{' '}
         <ChevronUpDownIcon className="w-5 h-5" />
       </div>
       <ul
@@ -87,10 +81,7 @@ const TeamDropdown = () => {
           return (
             <React.Fragment key={id}>
               {name && (
-                <li
-                  className="text-xs text-gray-500 py-1 px-2"
-                  key={`${id}-name`}
-                >
+                <li className="text-xs text-gray-500 py-1 px-2" key={`${id}-name`}>
                   {name}
                 </li>
               )}

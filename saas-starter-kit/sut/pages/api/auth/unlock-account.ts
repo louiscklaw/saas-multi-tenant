@@ -6,10 +6,7 @@ import { deleteVerificationToken } from 'models/verificationToken';
 import { isAccountLocked, sendLockoutEmail } from '@/lib/accountLock';
 import { resendLinkRequestSchema, validateWithSchema } from '@/lib/zod';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     switch (req.method) {
       case 'POST':
@@ -31,10 +28,7 @@ export default async function handler(
 
 // Resend unlock account email
 const handlePOST = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { email, expiredToken } = validateWithSchema(
-    resendLinkRequestSchema,
-    req.body
-  );
+  const { email, expiredToken } = validateWithSchema(resendLinkRequestSchema, req.body);
 
   const user = await getUser({ email });
 
@@ -43,10 +37,7 @@ const handlePOST = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (!isAccountLocked(user)) {
-    throw new ApiError(
-      400,
-      'Your account is already active. Please try logging in.'
-    );
+    throw new ApiError(400, 'Your account is already active. Please try logging in.');
   }
 
   await deleteVerificationToken(expiredToken);

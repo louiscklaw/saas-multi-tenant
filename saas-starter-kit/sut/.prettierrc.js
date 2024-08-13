@@ -1,9 +1,20 @@
 module.exports = {
-  singleQuote: true,
-  trailingComma: 'es5',
-  semi: true,
-  printWidth: 80,
   arrowParens: 'always',
+  bracketSpacing: true,
+  htmlWhitespaceSensitivity: 'strict',
+  insertPragma: false,
+  jsxBracketSameLine: false,
+  jsxSingleQuote: false,
+  printWidth: 120,
+  proseWrap: 'preserve',
+  quoteProps: 'as-needed',
+  requirePragma: false,
+  semi: true,
+  singleQuote: true,
+  tabWidth: 2,
+  trailingComma: 'es5',
+  useTabs: false,
+
   overrides: [
     {
       files: ['tsconfig.json', 'jsconfig.json'],

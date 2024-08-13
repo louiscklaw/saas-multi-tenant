@@ -10,14 +10,9 @@ import type {
 import { ApiError } from '@/lib/errors';
 
 export const strategyChecker = (body): { isSAML: boolean; isOIDC: boolean } => {
-  const isSAML =
-    'rawMetadata' in body ||
-    'encodedRawMetadata' in body ||
-    'metadataUrl' in body ||
-    'isSAML' in body;
+  const isSAML = 'rawMetadata' in body || 'encodedRawMetadata' in body || 'metadataUrl' in body || 'isSAML' in body;
 
-  const isOIDC =
-    'oidcDiscoveryUrl' in body || 'oidcMetadata' in body || 'isOIDC' in body;
+  const isOIDC = 'oidcDiscoveryUrl' in body || 'oidcMetadata' in body || 'isOIDC' in body;
 
   return { isSAML, isOIDC };
 };
@@ -39,10 +34,7 @@ export const oidcMetadataParse = (
       return { ...body, oidcMetadata };
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      throw new ApiError(
-        400,
-        'Could not parse OIDC Provider metadata, expected a valid JSON string'
-      );
+      throw new ApiError(400, 'Could not parse OIDC Provider metadata, expected a valid JSON string');
     }
   }
   return body;
@@ -50,9 +42,7 @@ export const oidcMetadataParse = (
 
 export interface JacksonSSO {
   createConnection: (params: any) => Promise<SAMLSSORecord | OIDCSSORecord>;
-  getConnections: (
-    param: GetConnectionsQuery
-  ) => Promise<(SAMLSSORecord | OIDCSSORecord)[]>;
+  getConnections: (param: GetConnectionsQuery) => Promise<(SAMLSSORecord | OIDCSSORecord)[]>;
   updateConnection: (params: any) => Promise<void>;
   deleteConnection: (params: DelConnectionsQuery) => Promise<void>;
 }

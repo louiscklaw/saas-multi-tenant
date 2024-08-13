@@ -5,10 +5,7 @@ import { render } from '@react-email/components';
 import env from '../env';
 import app from '../app';
 
-export const sendTeamInviteEmail = async (
-  team: Team,
-  invitation: Invitation
-) => {
+export const sendTeamInviteEmail = async (team: Team, invitation: Invitation) => {
   if (!invitation.email) {
     return;
   }

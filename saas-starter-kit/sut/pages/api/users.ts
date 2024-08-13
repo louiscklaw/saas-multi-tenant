@@ -7,10 +7,7 @@ import { getUser, updateUser } from 'models/user';
 import { isEmailAllowed } from '@/lib/email/utils';
 import { updateAccountSchema, validateWithSchema } from '@/lib/zod';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     switch (req.method) {
       case 'PUT':

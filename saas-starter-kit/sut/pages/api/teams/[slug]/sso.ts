@@ -6,17 +6,11 @@ import { sendAudit } from '@/lib/retraced';
 import { throwIfNoTeamAccess } from 'models/team';
 import { throwIfNotAllowed } from 'models/user';
 import { ssoManager } from '@/lib/jackson/sso/index';
-import {
-  extractClientId,
-  throwIfNoAccessToConnection,
-} from '@/lib/guards/team-sso';
+import { extractClientId, throwIfNoAccessToConnection } from '@/lib/guards/team-sso';
 
 const sso = ssoManager();
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
 
   try {

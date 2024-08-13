@@ -2,10 +2,7 @@ import { AuthLayout } from '@/components/layouts';
 import { InputWithLabel } from '@/components/shared';
 import { defaultHeaders, maxLengthPolicies } from '@/lib/common';
 import { useFormik } from 'formik';
-import type {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from 'next';
+import type { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
@@ -19,9 +16,9 @@ import GoogleReCAPTCHA from '@/components/shared/GoogleReCAPTCHA';
 import ReCAPTCHA from 'react-google-recaptcha';
 import env from '@/lib/env';
 
-const ForgotPassword: NextPageWithLayout<
-  InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ recaptchaSiteKey }) => {
+const ForgotPassword: NextPageWithLayout<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
+  recaptchaSiteKey,
+}) => {
   const { t } = useTranslation('common');
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [recaptchaToken, setRecaptchaToken] = useState<string>('');
@@ -74,11 +71,7 @@ const ForgotPassword: NextPageWithLayout<
               error={formik.touched.email ? formik.errors.email : undefined}
               onChange={formik.handleChange}
             />
-            <GoogleReCAPTCHA
-              recaptchaRef={recaptchaRef}
-              onChange={setRecaptchaToken}
-              siteKey={recaptchaSiteKey}
-            />
+            <GoogleReCAPTCHA recaptchaRef={recaptchaRef} onChange={setRecaptchaToken} siteKey={recaptchaSiteKey} />
           </div>
           <div className="mt-4">
             <Button
@@ -111,9 +104,7 @@ ForgotPassword.getLayout = function getLayout(page: ReactElement) {
   return <AuthLayout heading="reset-password">{page}</AuthLayout>;
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { locale }: GetServerSidePropsContext = context;
 
   return {

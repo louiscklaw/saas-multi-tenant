@@ -17,9 +17,7 @@ ResetPasswordPage.getLayout = function getLayout(page: ReactElement) {
   );
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { locale }: GetServerSidePropsContext = context;
 
   return {

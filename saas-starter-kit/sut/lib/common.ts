@@ -1,5 +1,4 @@
-const domainRegex =
-  /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/;
+const domainRegex = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/;
 
 export const isValidDomain = (domain: string): boolean => {
   return domainRegex.test(domain);
@@ -18,12 +17,7 @@ export const passwordPolicies = {
 };
 
 // List of events used to create webhook endpoint
-export const eventTypes = [
-  'member.created',
-  'member.removed',
-  'invitation.created',
-  'invitation.removed',
-];
+export const eventTypes = ['member.created', 'member.removed', 'invitation.created', 'invitation.removed'];
 
 export const maxLengthPolicies = {
   name: 104,

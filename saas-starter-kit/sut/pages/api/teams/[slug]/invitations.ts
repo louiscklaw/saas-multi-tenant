@@ -26,10 +26,7 @@ import {
   validateWithSchema,
 } from '@/lib/zod';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
 
   try {
@@ -65,10 +62,7 @@ const handlePOST = async (req: NextApiRequest, res: NextApiResponse) => {
   const teamMember = await throwIfNoTeamAccess(req, res);
   throwIfNotAllowed(teamMember, 'team_invitation', 'create');
 
-  const { email, role, sentViaEmail, domains } = validateWithSchema(
-    inviteViaEmailSchema,
-    req.body
-  ) as {
+  const { email, role, sentViaEmail, domains } = validateWithSchema(inviteViaEmailSchema, req.body) as {
     email?: string;
     role: Role;
     sentViaEmail: boolean;
@@ -169,9 +163,7 @@ Execution Time: 0.152 ms
       role,
       email: null,
       sentViaEmail: false,
-      allowedDomains: domains
-        ? domains.split(',').map((d) => d.trim().toLowerCase())
-        : [],
+      allowedDomains: domains ? domains.split(',').map((d) => d.trim().toLowerCase()) : [],
     });
   }
 
@@ -202,15 +194,9 @@ const handleGET = async (req: NextApiRequest, res: NextApiResponse) => {
   const teamMember = await throwIfNoTeamAccess(req, res);
   throwIfNotAllowed(teamMember, 'team_invitation', 'read');
 
-  const { sentViaEmail } = validateWithSchema(
-    getInvitationsSchema,
-    req.query as { sentViaEmail: string }
-  );
+  const { sentViaEmail } = validateWithSchema(getInvitationsSchema, req.query as { sentViaEmail: string });
 
-  const invitations = await getInvitations(
-    teamMember.teamId,
-    sentViaEmail === 'true'
-  );
+  const invitations = await getInvitations(teamMember.teamId, sentViaEmail === 'true');
 
   recordMetric('invitation.fetched');
 
@@ -222,21 +208,12 @@ const handleDELETE = async (req: NextApiRequest, res: NextApiResponse) => {
   const teamMember = await throwIfNoTeamAccess(req, res);
   throwIfNotAllowed(teamMember, 'team_invitation', 'delete');
 
-  const { id } = validateWithSchema(
-    deleteInvitationSchema,
-    req.query as { id: string }
-  );
+  const { id } = validateWithSchema(deleteInvitationSchema, req.query as { id: string });
 
   const invitation = await getInvitation({ id });
 
-  if (
-    invitation.invitedBy != teamMember.user.id ||
-    invitation.team.id != teamMember.teamId
-  ) {
-    throw new ApiError(
-      400,
-      `You don't have permission to delete this invitation.`
-    );
+  if (invitation.invitedBy != teamMember.user.id || invitation.team.id != teamMember.teamId) {
+    throw new ApiError(400, `You don't have permission to delete this invitation.`);
   }
 
   await deleteInvitation({ id });
@@ -257,10 +234,7 @@ const handleDELETE = async (req: NextApiRequest, res: NextApiResponse) => {
 
 // Accept an invitation to an organization
 const handlePUT = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { inviteToken } = validateWithSchema(
-    acceptInvitationSchema,
-    req.body as { inviteToken: string }
-  );
+  const { inviteToken } = validateWithSchema(acceptInvitationSchema, req.body as { inviteToken: string });
 
   const invitation = await getInvitation({ token: inviteToken });
 
@@ -273,32 +247,20 @@ const handlePUT = async (req: NextApiRequest, res: NextApiResponse) => {
 
   // Make sure the user is logged in with the invited email address (Join via email)
   if (invitation.sentViaEmail && invitation.email !== email) {
-    throw new ApiError(
-      400,
-      'You must be logged in with the email address you were invited with.'
-    );
+    throw new ApiError(400, 'You must be logged in with the email address you were invited with.');
   }
 
   // Make sure the user is logged in with an allowed domain (Join via link)
   if (!invitation.sentViaEmail && invitation.allowedDomains.length) {
     const emailDomain = extractEmailDomain(email);
-    const allowJoin = invitation.allowedDomains.find(
-      (domain) => domain === emailDomain
-    );
+    const allowJoin = invitation.allowedDomains.find((domain) => domain === emailDomain);
 
     if (!allowJoin) {
-      throw new ApiError(
-        400,
-        'You must be logged in with an email address from an allowed domain.'
-      );
+      throw new ApiError(400, 'You must be logged in with an email address from an allowed domain.');
     }
   }
 
-  const teamMember = await addTeamMember(
-    invitation.team.id,
-    session?.user?.id as string,
-    invitation.role
-  );
+  const teamMember = await addTeamMember(invitation.team.id, session?.user?.id as string, invitation.role);
 
   await sendEvent(invitation.team.id, 'member.created', teamMember);
 

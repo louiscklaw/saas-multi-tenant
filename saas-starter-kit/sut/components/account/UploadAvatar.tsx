@@ -16,10 +16,7 @@ const UploadAvatar = ({ user }: { user: Partial<User> }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setImage(
-      user.image ||
-        `https://api.dicebear.com/7.x/initials/svg?seed=${user.name}`
-    );
+    setImage(user.image || `https://api.dicebear.com/7.x/initials/svg?seed=${user.name}`);
   }, [user]);
 
   const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -120,13 +117,9 @@ const UploadAvatar = ({ user }: { user: Partial<User> }) => {
               />
               <div
                 className={`${
-                  dragActive
-                    ? 'cursor-copy border-2 border-black bg-gray-50 opacity-100'
-                    : ''
+                  dragActive ? 'cursor-copy border-2 border-black bg-gray-50 opacity-100' : ''
                 } absolute z-[3] flex h-full w-full flex-col items-center justify-center rounded-full bg-white transition-all ${
-                  image
-                    ? 'opacity-0 group-hover:opacity-100'
-                    : 'group-hover:bg-gray-50'
+                  image ? 'opacity-0 group-hover:opacity-100' : 'group-hover:bg-gray-50'
                 }`}
               >
                 <ArrowUpCircleIcon
@@ -135,13 +128,7 @@ const UploadAvatar = ({ user }: { user: Partial<User> }) => {
                   } h-50 w-50 text-gray-500 transition-all duration-75 group-hover:scale-110 group-active:scale-95`}
                 />
               </div>
-              {image && (
-                <img
-                  src={image}
-                  alt={user.name}
-                  className="h-full w-full rounded-full object-cover"
-                />
-              )}
+              {image && <img src={image} alt={user.name} className="h-full w-full rounded-full object-cover" />}
             </label>
             <div className="mt-1 flex rounded-full shadow-sm">
               <input
@@ -156,13 +143,7 @@ const UploadAvatar = ({ user }: { user: Partial<User> }) => {
           </div>
         </Card.Body>
         <Card.Footer>
-          <Button
-            type="submit"
-            color="primary"
-            size="md"
-            disabled={!image || image === user.image}
-            loading={loading}
-          >
+          <Button type="submit" color="primary" size="md" disabled={!image || image === user.image} loading={loading}>
             {t('save-changes')}
           </Button>
         </Card.Footer>

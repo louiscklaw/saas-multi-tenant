@@ -8,10 +8,7 @@ import { ApiError } from '@/lib/errors';
 import { deleteApiKeySchema, validateWithSchema } from '@/lib/zod';
 import { throwIfNoAccessToApiKey } from '@/lib/guards/team-api-key';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (!env.teamFeatures.apiKey) {
       throw new ApiError(404, 'Not Found');

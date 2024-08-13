@@ -2,10 +2,7 @@ import { ApiError } from '@/lib/errors';
 import jackson from '@/lib/jackson';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
 
   try {

@@ -4,11 +4,7 @@
     "currency": "USD",
     "duration": "month",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    "benefits": [
-      "Up to 20 users.",
-      "Free storage upto 1GB",
-      "Lifetime validity"
-    ]
+    "benefits": ["Up to 20 users.", "Free storage upto 1GB", "Lifetime validity"]
   },
   {
     "amount": "120k",
@@ -22,11 +18,6 @@
     "currency": "USD",
     "duration": "month",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    "benefits": [
-      "Up to 1000 users.",
-      "Storage upto 100GB",
-      "24*7 support",
-      "Data backups"
-    ]
+    "benefits": ["Up to 1000 users.", "Storage upto 100GB", "24*7 support", "Data backups"]
   }
 ]

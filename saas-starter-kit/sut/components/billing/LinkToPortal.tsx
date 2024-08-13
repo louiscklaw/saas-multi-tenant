@@ -20,14 +20,11 @@ const LinkToPortal = ({ team }: LinkToPortalProps) => {
   const openStripePortal = async () => {
     setLoading(true);
 
-    const response = await fetch(
-      `/api/teams/${team.slug}/payments/create-portal-link`,
-      {
-        method: 'POST',
-        headers: defaultHeaders,
-        credentials: 'same-origin',
-      }
-    );
+    const response = await fetch(`/api/teams/${team.slug}/payments/create-portal-link`, {
+      method: 'POST',
+      headers: defaultHeaders,
+      credentials: 'same-origin',
+    });
 
     const result = (await response.json()) as ApiResponse<{ url: string }>;
 

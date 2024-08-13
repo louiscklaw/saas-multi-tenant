@@ -8,9 +8,7 @@ const GoogleButton = () => {
   const { t } = useTranslation('common');
   const { invitation } = useInvitation();
 
-  const callbackUrl = invitation
-    ? `/invitations/${invitation.token}`
-    : env.redirectIfAuthenticated;
+  const callbackUrl = invitation ? `/invitations/${invitation.token}` : env.redirectIfAuthenticated;
 
   return (
     <Button

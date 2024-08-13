@@ -15,12 +15,9 @@ export const validateRecaptcha = async (token?: string) => {
     response: token,
   });
 
-  const response = await fetch(
-    `https://www.google.com/recaptcha/api/siteverify?${params}`,
-    {
-      method: 'POST',
-    }
-  );
+  const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?${params}`, {
+    method: 'POST',
+  });
 
   const { success } = await response.json();
 

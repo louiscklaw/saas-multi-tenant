@@ -1,8 +1,5 @@
 import { updateUser } from 'models/user';
-import {
-  deleteVerificationToken,
-  getVerificationToken,
-} from 'models/verificationToken';
+import { deleteVerificationToken, getVerificationToken } from 'models/verificationToken';
 import type { GetServerSidePropsContext } from 'next';
 import type { ReactElement } from 'react';
 
@@ -14,9 +11,7 @@ VerifyEmailToken.getLayout = function getLayout(page: ReactElement) {
   return <>{page}</>;
 };
 
-export const getServerSideProps = async ({
-  query,
-}: GetServerSidePropsContext) => {
+export const getServerSideProps = async ({ query }: GetServerSidePropsContext) => {
   const { token } = query as { token: string };
 
   if (!token) {

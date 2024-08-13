@@ -6,10 +6,7 @@ import { stripe, getStripeCustomerId } from '@/lib/stripe';
 import env from '@/lib/env';
 import { checkoutSessionSchema, validateWithSchema } from '@/lib/zod';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     switch (req.method) {
       case 'POST':
@@ -30,10 +27,7 @@ export default async function handler(
 }
 
 const handlePOST = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { price, quantity } = validateWithSchema(
-    checkoutSessionSchema,
-    req.body
-  );
+  const { price, quantity } = validateWithSchema(checkoutSessionSchema, req.body);
 
   const teamMember = await throwIfNoTeamAccess(req, res);
   const session = await getSession(req, res);

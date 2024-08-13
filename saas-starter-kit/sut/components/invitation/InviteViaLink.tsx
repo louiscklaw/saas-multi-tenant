@@ -30,17 +30,13 @@ const InviteViaLink = ({ team }: InviteViaLinkProps) => {
     domains: Yup.string()
       .nullable()
       .max(maxLengthPolicies.domains)
-      .test(
-        'domains',
-        'Enter one or more valid domains, separated by commas.',
-        (value) => {
-          if (!value) {
-            return true;
-          }
-
-          return value.split(',').every(isValidDomain);
+      .test('domains', 'Enter one or more valid domains, separated by commas.', (value) => {
+        if (!value) {
+          return true;
         }
-      ),
+
+        return value.split(',').every(isValidDomain);
+      }),
     role: Yup.string()
       .required(t('required-role'))
       .oneOf(availableRoles.map((r) => r.id)),
@@ -75,13 +71,10 @@ const InviteViaLink = ({ team }: InviteViaLinkProps) => {
 
   // Delete an existing invitation link
   const deleteInvitationLink = async (id: string) => {
-    const response = await fetch(
-      `/api/teams/${team.slug}/invitations?id=${id}`,
-      {
-        method: 'DELETE',
-        headers: defaultHeaders,
-      }
-    );
+    const response = await fetch(`/api/teams/${team.slug}/invitations?id=${id}`, {
+      method: 'DELETE',
+      headers: defaultHeaders,
+    });
 
     if (!response.ok) {
       const result = (await response.json()) as ApiResponse;
@@ -99,19 +92,12 @@ const InviteViaLink = ({ team }: InviteViaLinkProps) => {
   if (invitation) {
     return (
       <div className="pt-4">
-        <InputWithCopyButton
-          label={t('share-invitation-link')}
-          value={invitation.url}
-          className="text-sm w-full"
-        />
+        <InputWithCopyButton label={t('share-invitation-link')} value={invitation.url} className="text-sm w-full" />
         <p className="text-sm text-slate-500 my-2">
           {invitation.allowedDomains.length > 0
             ? `Anyone with an email address ending with ${invitation.allowedDomains} can use this link to join your team.`
             : 'Anyone can use this link to join your team.'}
-          <Button
-            className="btn btn-xs btn-link link-error"
-            onClick={() => setShowDelDialog(true)}
-          >
+          <Button className="btn btn-xs btn-link link-error" onClick={() => setShowDelDialog(true)}>
             {t('delete-link')}
           </Button>
         </p>

@@ -29,9 +29,7 @@ const EventTypes = ({
   return (
     <>
       {events}
-      {error && typeof error === 'string' && (
-        <div className="label-text-alt text-red-500">{error}</div>
-      )}
+      {error && typeof error === 'string' && <div className="label-text-alt text-red-500">{error}</div>}
     </>
   );
 };

@@ -20,10 +20,7 @@ const InviteViaEmail = ({ setVisible, team }: InviteViaEmailProps) => {
   const { t } = useTranslation('common');
 
   const FormValidationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email()
-      .max(maxLengthPolicies.email)
-      .required(t('require-email')),
+    email: Yup.string().email().max(maxLengthPolicies.email).required(t('require-email')),
     role: Yup.string()
       .required(t('required-role'))
       .oneOf(availableRoles.map((r) => r.id)),

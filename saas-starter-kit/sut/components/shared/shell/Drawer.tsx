@@ -21,16 +21,9 @@ const Drawer = ({ sidebarOpen, setSidebarOpen }: DrawerProps) => {
           <div className="fixed inset-0 flex">
             <div className="relative mr-16 flex w-full max-w-xs flex-1">
               <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
-                <button
-                  type="button"
-                  className="-m-2.5 p-2.5"
-                  onClick={() => setSidebarOpen(false)}
-                >
+                <button type="button" className="-m-2.5 p-2.5" onClick={() => setSidebarOpen(false)}>
                   <span className="sr-only">{t('close-sidebar')}</span>
-                  <XMarkIcon
-                    className="h-6 w-6 text-white"
-                    aria-hidden="true"
-                  />
+                  <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
                 </button>
               </div>
               <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white dark:bg-black px-6 pb-4">

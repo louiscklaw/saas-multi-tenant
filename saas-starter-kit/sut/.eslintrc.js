@@ -44,11 +44,7 @@ module.exports = {
       },
     },
     {
-      files: [
-        'components/defaultLanding/**/*.tsx',
-        'components/emailTemplates/**/*.tsx',
-        'pages/index.tsx',
-      ],
+      files: ['components/defaultLanding/**/*.tsx', 'components/emailTemplates/**/*.tsx', 'pages/index.tsx'],
       rules: {
         'i18next/no-literal-string': 'off',
       },

@@ -6,10 +6,7 @@ const Badge = (props: BadgeProps) => {
 
   return (
     <>
-      <BaseBadge
-        {...props}
-        className={classNames('rounded text-xs py-2 text-white', className)}
-      >
+      <BaseBadge {...props} className={classNames('rounded text-xs py-2 text-white', className)}>
         {children}
       </BaseBadge>
     </>

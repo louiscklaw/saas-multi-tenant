@@ -8,10 +8,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 const sso = ssoManager();
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
 
   try {
@@ -33,10 +30,7 @@ export default async function handler(
 }
 
 const handlePOST = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { slug, email } = validateWithSchema(
-    ssoVerifySchema,
-    JSON.parse(req.body) as { slug: string }
-  );
+  const { slug, email } = validateWithSchema(ssoVerifySchema, JSON.parse(req.body) as { slug: string });
 
   if (!slug && !email) {
     return res.status(400).json({ error: 'Invalid request.' });

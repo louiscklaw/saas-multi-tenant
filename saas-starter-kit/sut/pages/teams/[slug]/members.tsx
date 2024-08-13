@@ -34,9 +34,7 @@ const TeamMembers = ({ teamFeatures }) => {
   );
 };
 
-export async function getServerSideProps({
-  locale,
-}: GetServerSidePropsContext) {
+export async function getServerSideProps({ locale }: GetServerSidePropsContext) {
   return {
     props: {
       ...(locale ? await serverSideTranslations(locale, ['common']) : {}),

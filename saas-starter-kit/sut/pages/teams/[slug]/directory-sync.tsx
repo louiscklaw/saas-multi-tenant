@@ -27,11 +27,7 @@ const DirectorySync = ({ teamFeatures }) => {
 
   return (
     <>
-      <TeamTab
-        activeTab="directory-sync"
-        team={team}
-        teamFeatures={teamFeatures}
-      />
+      <TeamTab activeTab="directory-sync" team={team} teamFeatures={teamFeatures} />
       <DirectoriesWrapper
         classNames={BOXYHQ_UI_CSS}
         componentProps={{
@@ -40,21 +36,11 @@ const DirectorySync = ({ teamFeatures }) => {
             hideViewAction: true,
           },
           createDirectory: {
-            excludeFields: [
-              'product',
-              'tenant',
-              'webhook_secret',
-              'webhook_url',
-              'log_webhook_events',
-            ],
+            excludeFields: ['product', 'tenant', 'webhook_secret', 'webhook_url', 'log_webhook_events'],
             disableGoogleProvider: true,
           },
           editDirectory: {
-            excludeFields: [
-              'webhook_url',
-              'webhook_secret',
-              'log_webhook_events',
-            ],
+            excludeFields: ['webhook_url', 'webhook_secret', 'log_webhook_events'],
           },
         }}
         urls={{
@@ -80,9 +66,7 @@ const DirectorySync = ({ teamFeatures }) => {
   );
 };
 
-export async function getServerSideProps({
-  locale,
-}: GetServerSidePropsContext) {
+export async function getServerSideProps({ locale }: GetServerSidePropsContext) {
   if (!env.teamFeatures.dsync) {
     return {
       notFound: true,

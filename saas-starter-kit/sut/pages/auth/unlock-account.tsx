@@ -4,11 +4,7 @@ import { useState, type ReactElement, useEffect } from 'react';
 import type { ComponentStatus } from 'react-daisyui/dist/types';
 import { useTranslation } from 'next-i18next';
 
-import {
-  deleteVerificationToken,
-  getVerificationToken,
-  isVerificationTokenExpired,
-} from 'models/verificationToken';
+import { deleteVerificationToken, getVerificationToken, isVerificationTokenExpired } from 'models/verificationToken';
 import { Alert } from '@/components/shared';
 import { defaultHeaders } from '@/lib/common';
 import { AuthLayout } from '@/components/layouts';
@@ -27,12 +23,7 @@ interface Message {
   status: ComponentStatus | null;
 }
 
-const UnlockAccount = ({
-  email,
-  error,
-  expiredToken,
-  enableRequestNewToken,
-}: UnlockAccountProps) => {
+const UnlockAccount = ({ email, error, expiredToken, enableRequestNewToken }: UnlockAccountProps) => {
   const [loading, setLoading] = useState(false);
   const [displayResendLink, setDisplayResendLink] = useState(false);
   const [message, setMessage] = useState<Message>({ text: null, status: null });
@@ -79,17 +70,10 @@ const UnlockAccount = ({
 
   return (
     <div className="rounded p-6 border">
-      {message.text && message.status && (
-        <Alert status={message.status}>{message.text}</Alert>
-      )}
+      {message.text && message.status && <Alert status={message.status}>{message.text}</Alert>}
 
       {displayResendLink && (
-        <Button
-          wide
-          className="mt-4 btn btn-outline w-full"
-          onClick={requestNewLink}
-          loading={loading}
-        >
+        <Button wide className="mt-4 btn btn-outline w-full" onClick={requestNewLink} loading={loading}>
           {t('request-new-link')}
         </Button>
       )}
@@ -101,9 +85,7 @@ UnlockAccount.getLayout = function getLayout(page: ReactElement) {
   return <AuthLayout heading="unlock-account">{page}</AuthLayout>;
 };
 
-export const getServerSideProps = async ({
-  query,
-}: GetServerSidePropsContext) => {
+export const getServerSideProps = async ({ query }: GetServerSidePropsContext) => {
   const { token } = query as { token: string };
 
   if (!token) {
@@ -117,8 +99,7 @@ export const getServerSideProps = async ({
   if (!verificationToken) {
     return {
       props: {
-        error:
-          'The link is invalid or has already been used. Please contact support if you need further assistance.',
+        error: 'The link is invalid or has already been used. Please contact support if you need further assistance.',
         enableRequestNewToken: false,
         email: null,
         expiredToken: null,
@@ -137,8 +118,7 @@ export const getServerSideProps = async ({
   if (isVerificationTokenExpired(verificationToken)) {
     return {
       props: {
-        error:
-          'The link has expired. Please request a new one if you still need to unlock your account.',
+        error: 'The link has expired. Please request a new one if you still need to unlock your account.',
         enableRequestNewToken: true,
         email: verificationToken.identifier,
         expiredToken: verificationToken.token,
@@ -146,10 +126,7 @@ export const getServerSideProps = async ({
     };
   }
 
-  await Promise.allSettled([
-    unlockAccount(user),
-    deleteVerificationToken(verificationToken.token),
-  ]);
+  await Promise.allSettled([unlockAccount(user), deleteVerificationToken(verificationToken.token)]);
 
   return {
     redirect: {

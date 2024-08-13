@@ -51,30 +51,16 @@ export class SSOPage {
       .filter({ hasText: 'Allowed redirect URLs' })
       .locator(page.getByRole('textbox').first());
     this.defaultRedirectURLInput = this.page.getByLabel('Default redirect URL');
-    this.metadataUrlInput = this.page.getByPlaceholder(
-      'Paste the Metadata URL here'
-    );
-    this.metadataRawInput = this.page.getByPlaceholder(
-      'Paste the raw XML here'
-    );
+    this.metadataUrlInput = this.page.getByPlaceholder('Paste the Metadata URL here');
+    this.metadataRawInput = this.page.getByPlaceholder('Paste the raw XML here');
     this.oidcIssuerInput = this.page.getByPlaceholder('https://example.com', {
       exact: true,
     });
-    this.oidcAuthzInput = this.page.getByPlaceholder(
-      'https://example.com/oauth/authorize'
-    );
-    this.oidcTokenInput = this.page.getByPlaceholder(
-      'https://example.com/oauth/token'
-    );
-    this.oidcJwksInput = this.page.getByPlaceholder(
-      'https://example.com/.well-known/jwks.json'
-    );
-    this.oidcUserinfoInput = this.page.getByPlaceholder(
-      'https://example.com/userinfo'
-    );
-    this.oidcDiscoveryUrlInput = this.page.getByLabel(
-      'Well-known URL of OpenID Provider'
-    );
+    this.oidcAuthzInput = this.page.getByPlaceholder('https://example.com/oauth/authorize');
+    this.oidcTokenInput = this.page.getByPlaceholder('https://example.com/oauth/token');
+    this.oidcJwksInput = this.page.getByPlaceholder('https://example.com/.well-known/jwks.json');
+    this.oidcUserinfoInput = this.page.getByPlaceholder('https://example.com/userinfo');
+    this.oidcDiscoveryUrlInput = this.page.getByLabel('Well-known URL of OpenID Provider');
     this.oidcClientIdInput = this.page.getByLabel('Client ID');
     this.oidcClientSecretInput = this.page.getByLabel('Client Secret');
     this.noConnectionsHeader = this.page.getByRole('heading', {
@@ -83,9 +69,7 @@ export class SSOPage {
     this.toggleConnectionStatusCheckbox = this.page.getByRole('checkbox', {
       name: 'Active',
     });
-    this.toggleConnectionStatusLabel = this.page
-      .locator('label')
-      .filter({ hasText: 'Active' });
+    this.toggleConnectionStatusLabel = this.page.locator('label').filter({ hasText: 'Active' });
     this.saveButton = this.page.getByRole('button', { name: 'Save' });
     this.deleteButton = this.page.getByRole('button', { name: 'Delete' });
     this.confirmButton = this.page.getByRole('button', { name: 'Confirm' });
@@ -96,9 +80,7 @@ export class SSOPage {
     if (productId) {
       this.productId = productId;
     }
-    const url = productId
-      ? `/products/${productId}/sso`
-      : `/teams/${this.teamSlug}/sso`;
+    const url = productId ? `/products/${productId}/sso` : `/teams/${this.teamSlug}/sso`;
     await this.page.goto(url);
     await expect(this.pageHeader).toBeVisible();
   }
@@ -153,9 +135,7 @@ export class SSOPage {
       // Fill the Allowed redirect URLs for the connection
       await this.redirectURLSInput.fill('http://localhost:3366');
       // Fill the default redirect URLs for the connection
-      await this.defaultRedirectURLInput.fill(
-        'http://localhost:3366/login/saml'
-      );
+      await this.defaultRedirectURLInput.fill('http://localhost:3366/login/saml');
     }
     if (type === 'saml') {
       if (process.env.JACKSON_URL) {
@@ -170,13 +150,9 @@ export class SSOPage {
     if (type === 'oidc') {
       // Enter the OIDC client credentials for mocklab in the form
       await this.oidcClientIdInput.fill(oidcClientId ?? MOCKLAB_CLIENT_ID);
-      await this.oidcClientSecretInput.fill(
-        oidcClientSecret ?? MOCKLAB_CLIENT_SECRET
-      );
+      await this.oidcClientSecretInput.fill(oidcClientSecret ?? MOCKLAB_CLIENT_SECRET);
       if (oidcDiscoveryUrl || !oidcMetadata) {
-        await this.oidcDiscoveryUrlInput.fill(
-          oidcDiscoveryUrl ?? MOCKLAB_DISCOVERY_ENDPOINT
-        );
+        await this.oidcDiscoveryUrlInput.fill(oidcDiscoveryUrl ?? MOCKLAB_DISCOVERY_ENDPOINT);
       } else if (typeof oidcMetadata === 'object') {
         await this.oidcIssuerInput.fill(oidcMetadata.issuer);
         await this.oidcAuthzInput.fill(oidcMetadata.authorize_endpoint);
@@ -186,9 +162,7 @@ export class SSOPage {
       }
     }
     await this.saveButton.click();
-    const _expectedproviderName =
-      provider ??
-      (type === 'saml' ? 'saml.example.com' : 'oauth.wiremockapi.cloud');
+    const _expectedproviderName = provider ?? (type === 'saml' ? 'saml.example.com' : 'oauth.wiremockapi.cloud');
     if (index > -1) {
       await expect(
         this.page
@@ -215,13 +189,7 @@ export class SSOPage {
     ).toBeVisible();
   }
 
-  async updateSSOConnection({
-    url,
-    newStatus,
-  }: {
-    url?: string;
-    newStatus?: boolean;
-  }) {
+  async updateSSOConnection({ url, newStatus }: { url?: string; newStatus?: boolean }) {
     if (url) {
       await this.openEditSSOConnectionView();
       await this.redirectURLSInput.fill(url);
@@ -270,11 +238,7 @@ export class SSOPage {
     await this.page.getByPlaceholder('user@boxyhq.com').fill(email);
     await this.page.getByRole('button', { name: 'Continue with SSO' }).click();
   }
-  async signInWithMockSAML(
-    mocksamlOrigin: string,
-    mocksamlBtnName: string,
-    userName: string
-  ) {
+  async signInWithMockSAML(mocksamlOrigin: string, mocksamlBtnName: string, userName: string) {
     // Perform sign in at mocksaml
     await this.page.waitForURL((url) => url.origin === mocksamlOrigin);
     await this.page.getByPlaceholder('jackson').fill(userName);

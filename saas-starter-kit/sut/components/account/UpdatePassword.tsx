@@ -10,10 +10,7 @@ import { maxLengthPolicies } from '@/lib/common';
 
 const schema = Yup.object().shape({
   currentPassword: Yup.string().required().max(maxLengthPolicies.password),
-  newPassword: Yup.string()
-    .required()
-    .min(passwordPolicies.minLength)
-    .max(maxLengthPolicies.password),
+  newPassword: Yup.string().required().min(passwordPolicies.minLength).max(maxLengthPolicies.password),
 });
 
 const UpdatePassword = () => {
@@ -60,11 +57,7 @@ const UpdatePassword = () => {
                 name="currentPassword"
                 placeholder={t('current-password')}
                 value={formik.values.currentPassword}
-                error={
-                  formik.touched.currentPassword
-                    ? formik.errors.currentPassword
-                    : undefined
-                }
+                error={formik.touched.currentPassword ? formik.errors.currentPassword : undefined}
                 onChange={formik.handleChange}
                 className="text-sm"
               />
@@ -74,11 +67,7 @@ const UpdatePassword = () => {
                 name="newPassword"
                 placeholder={t('new-password')}
                 value={formik.values.newPassword}
-                error={
-                  formik.touched.newPassword
-                    ? formik.errors.newPassword
-                    : undefined
-                }
+                error={formik.touched.newPassword ? formik.errors.newPassword : undefined}
                 onChange={formik.handleChange}
                 className="text-sm"
               />

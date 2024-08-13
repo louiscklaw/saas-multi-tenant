@@ -52,9 +52,7 @@ IdPSelection.getLayout = function getLayout(page: ReactElement) {
   );
 };
 
-export const getServerSideProps = async ({
-  query,
-}: GetServerSidePropsContext) => {
+export const getServerSideProps = async ({ query }: GetServerSidePropsContext) => {
   const { apiController } = await jackson();
 
   const paramsToRelay = { ...query } as { [key: string]: string };
@@ -101,10 +99,8 @@ export const getServerSideProps = async ({
   // Transform the connections into a format that we can use
   // Send only the clientID and name to the frontend
   const connectionsFormatted = connections.map((connection) => {
-    const idpMetadata =
-      'idpMetadata' in connection ? connection.idpMetadata : undefined;
-    const oidcProvider =
-      'oidcProvider' in connection ? connection.oidcProvider : undefined;
+    const idpMetadata = 'idpMetadata' in connection ? connection.idpMetadata : undefined;
+    const oidcProvider = 'oidcProvider' in connection ? connection.oidcProvider : undefined;
 
     const name =
       connection.name ||

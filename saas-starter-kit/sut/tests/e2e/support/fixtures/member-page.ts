@@ -28,18 +28,12 @@ export class MemberPage {
       name: 'Invite',
       exact: true,
     });
-    this.inviteDomainField = this.page.getByPlaceholder(
-      'Restrict domain: boxyhq.com'
-    );
+    this.inviteDomainField = this.page.getByPlaceholder('Restrict domain: boxyhq.com');
     this.createInviteLinkButton = this.page.getByRole('button', {
       name: 'Create Link',
     });
-    this.inviteByLinkSuccessText = this.page.getByText(
-      'Share your team invite link'
-    );
-    this.removeMemberButton = this.page
-      .getByRole('cell', { name: 'Remove' })
-      .first();
+    this.inviteByLinkSuccessText = this.page.getByText('Share your team invite link');
+    this.removeMemberButton = this.page.getByRole('cell', { name: 'Remove' }).first();
     this.deleteButtonForMember = this.page.getByRole('button', {
       name: 'Delete',
     });
@@ -55,11 +49,7 @@ export class MemberPage {
     await expect(this.membersHeading).toBeVisible();
   }
 
-  async teamMemberExists(
-    name: string,
-    email: string,
-    role: 'OWNER' | 'MEMBER'
-  ) {
+  async teamMemberExists(name: string, email: string, role: 'OWNER' | 'MEMBER') {
     await expect(this.memberEntryRowName(name)).toBeVisible();
     await expect(this.memberEntryRowEmail(email)).toBeVisible();
     await expect(this.memberEntryRowRole(role)).toBeVisible();
@@ -74,9 +64,7 @@ export class MemberPage {
   }
 
   private memberEntryRowName(name: string) {
-    return this.page
-      .getByRole('cell', { name: `${name.charAt(0).toUpperCase()} ${name}` })
-      .locator('span');
+    return this.page.getByRole('cell', { name: `${name.charAt(0).toUpperCase()} ${name}` }).locator('span');
   }
 
   async openInviteModal() {
@@ -121,21 +109,14 @@ export class MemberPage {
     await this.createInviteLinkButton.click();
 
     await expect(this.inviteByLinkSuccessText).toBeVisible();
-    const domainInviteLink = await this.page
-      .getByRole('textbox')
-      .nth(1)
-      .inputValue();
+    const domainInviteLink = await this.page.getByRole('textbox').nth(1).inputValue();
     return domainInviteLink;
   }
 
   async removeMember() {
     await this.removeMemberButton.click();
-    await expect(
-      this.page.getByRole('heading', { name: 'Confirm deletion of member' })
-    ).toBeVisible();
+    await expect(this.page.getByRole('heading', { name: 'Confirm deletion of member' })).toBeVisible();
     await this.deleteButtonForMember.click();
-    await expect(
-      this.page.getByText('Member deleted successfully.')
-    ).toBeVisible();
+    await expect(this.page.getByText('Member deleted successfully.')).toBeVisible();
   }
 }

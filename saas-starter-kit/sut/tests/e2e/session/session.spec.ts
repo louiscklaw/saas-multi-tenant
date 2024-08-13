@@ -35,10 +35,7 @@ test.afterEach(async () => {
   await prisma.session.deleteMany();
 });
 
-test('Session is shown in security page ', async ({
-  settingsPage,
-  securityPage,
-}) => {
+test('Session is shown in security page ', async ({ settingsPage, securityPage }) => {
   await settingsPage.gotoSection('security');
 
   await securityPage.checkCurrentSession();

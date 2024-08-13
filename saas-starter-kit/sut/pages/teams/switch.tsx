@@ -2,10 +2,7 @@ import { AuthLayout } from '@/components/layouts';
 import { getSession } from '@/lib/session';
 import { deleteCookie } from 'cookies-next';
 import { getTeams } from 'models/team';
-import type {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from 'next';
+import type { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { useSession } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -14,9 +11,7 @@ import { type ReactElement, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import type { NextPageWithLayout } from 'types';
 
-const Organizations: NextPageWithLayout<
-  InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ teams }) => {
+const Organizations: NextPageWithLayout<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ teams }) => {
   const router = useRouter();
   const { t } = useTranslation('common');
   const { status } = useSession();
@@ -48,9 +43,7 @@ Organizations.getLayout = function getLayout(page: ReactElement) {
   return <AuthLayout>{page}</AuthLayout>;
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { req, res, locale }: GetServerSidePropsContext = context;
 
   const session = await getSession(req, res);

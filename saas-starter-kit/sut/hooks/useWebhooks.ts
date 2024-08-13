@@ -6,10 +6,7 @@ import type { ApiResponse } from 'types';
 const useWebhooks = (slug: string) => {
   const url = `/api/teams/${slug}/webhooks`;
 
-  const { data, error, isLoading } = useSWR<ApiResponse<EndpointOut[]>>(
-    slug ? url : null,
-    fetcher
-  );
+  const { data, error, isLoading } = useSWR<ApiResponse<EndpointOut[]>>(slug ? url : null, fetcher);
 
   const mutateWebhooks = async () => {
     mutate(url);

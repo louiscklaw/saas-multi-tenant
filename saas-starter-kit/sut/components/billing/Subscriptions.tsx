@@ -15,9 +15,7 @@ const Subscriptions = ({ subscriptions }: SubscriptionsProps) => {
 
   return (
     <div className="space-y-3">
-      <h2 className="card-title text-xl font-medium leading-none tracking-tight">
-        {t('subscriptions')}
-      </h2>
+      <h2 className="card-title text-xl font-medium leading-none tracking-tight">{t('subscriptions')}</h2>
       <table className="table w-full text-sm border">
         <thead>
           <tr>

@@ -6,10 +6,7 @@ import jackson from '@/lib/jackson';
 import { extractAuthToken } from '@/lib/server-common';
 import { handleEvents } from '@/lib/jackson/dsyncEvents';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (!env.teamFeatures.dsync) {
     res.status(404).json({ error: { message: 'Not Found' } });
   }
@@ -31,17 +28,12 @@ export default async function handler(
     apiSecret: extractAuthToken(req),
     query: {
       count: req.query.count ? parseInt(req.query.count as string) : undefined,
-      startIndex: req.query.startIndex
-        ? parseInt(req.query.startIndex as string)
-        : undefined,
+      startIndex: req.query.startIndex ? parseInt(req.query.startIndex as string) : undefined,
       filter: req.query.filter as string,
     },
   };
 
-  const { status, data } = await directorySync.requests.handle(
-    request,
-    handleEvents
-  );
+  const { status, data } = await directorySync.requests.handle(request, handleEvents);
 
   res.status(status).json(data);
 }

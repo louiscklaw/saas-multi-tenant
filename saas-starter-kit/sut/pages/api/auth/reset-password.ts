@@ -9,10 +9,7 @@ import { deletePasswordReset, getPasswordReset } from 'models/passwordReset';
 import { deleteManySessions } from 'models/session';
 import { resetPasswordSchema, validateWithSchema } from '@/lib/zod';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
 
   try {
@@ -44,17 +41,11 @@ const handlePOST = async (req: NextApiRequest, res: NextApiResponse) => {
   const passwordReset = await getPasswordReset(token);
 
   if (!passwordReset) {
-    throw new ApiError(
-      422,
-      'Invalid password reset token. Please request a new one.'
-    );
+    throw new ApiError(422, 'Invalid password reset token. Please request a new one.');
   }
 
   if (passwordReset.expiresAt < new Date()) {
-    throw new ApiError(
-      422,
-      'Password reset token has expired. Please request a new one.'
-    );
+    throw new ApiError(422, 'Password reset token has expired. Please request a new one.');
   }
 
   const hashedPassword = await hashPassword(password);

@@ -18,10 +18,7 @@ import { userJoinSchema, validateWithSchema } from '@/lib/zod';
 // TODO:
 // Add zod schema validation
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
 
   try {
@@ -49,9 +46,7 @@ const handlePOST = async (req: NextApiRequest, res: NextApiResponse) => {
 
   await validateRecaptcha(recaptchaToken);
 
-  const invitation = inviteToken
-    ? await getInvitation({ token: inviteToken })
-    : null;
+  const invitation = inviteToken ? await getInvitation({ token: inviteToken }) : null;
 
   let email: string = req.body.email;
 
@@ -134,9 +129,7 @@ const handlePOST = async (req: NextApiRequest, res: NextApiResponse) => {
   recordMetric('user.signup');
 
   slackNotify()?.alert({
-    text: invitation
-      ? 'New user signed up via invitation'
-      : 'New user signed up',
+    text: invitation ? 'New user signed up via invitation' : 'New user signed up',
     fields: {
       Name: user.name,
       Email: user.email,

@@ -53,10 +53,7 @@ process.on('uncaughtException', (error) => {
 });
 
 async function printStats(prisma) {
-  const [productCount, priceCount] = await Promise.all([
-    prisma.service.count(),
-    prisma.price.count(),
-  ]);
+  const [productCount, priceCount] = await Promise.all([prisma.service.count(), prisma.price.count()]);
 
   console.log('Products synced:', productCount);
   console.log('Prices synced:', priceCount);

@@ -2,26 +2,15 @@ import { ApiError } from '@/lib/errors';
 import { sendAudit } from '@/lib/retraced';
 import { sendEvent } from '@/lib/svix';
 import { Role } from '@prisma/client';
-import {
-  getTeamMembers,
-  removeTeamMember,
-  throwIfNoTeamAccess,
-} from 'models/team';
+import { getTeamMembers, removeTeamMember, throwIfNoTeamAccess } from 'models/team';
 import { throwIfNotAllowed } from 'models/user';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { recordMetric } from '@/lib/metrics';
 import { countTeamMembers, updateTeamMember } from 'models/teamMember';
 import { validateMembershipOperation } from '@/lib/rbac';
-import {
-  deleteMemberSchema,
-  updateMemberSchema,
-  validateWithSchema,
-} from '@/lib/zod';
+import { deleteMemberSchema, updateMemberSchema, validateWithSchema } from '@/lib/zod';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
 
   try {
@@ -69,10 +58,7 @@ const handleDELETE = async (req: NextApiRequest, res: NextApiResponse) => {
   const teamMember = await throwIfNoTeamAccess(req, res);
   throwIfNotAllowed(teamMember, 'team_member', 'delete');
 
-  const { memberId } = validateWithSchema(
-    deleteMemberSchema,
-    req.query as { memberId: string }
-  );
+  const { memberId } = validateWithSchema(deleteMemberSchema, req.query as { memberId: string });
 
   await validateMembershipOperation(memberId, teamMember);
 
@@ -151,10 +137,7 @@ const handlePATCH = async (req: NextApiRequest, res: NextApiResponse) => {
   const teamMember = await throwIfNoTeamAccess(req, res);
   throwIfNotAllowed(teamMember, 'team_member', 'update');
 
-  const { memberId, role } = validateWithSchema(
-    updateMemberSchema,
-    req.body as { memberId: string; role: Role }
-  );
+  const { memberId, role } = validateWithSchema(updateMemberSchema, req.body as { memberId: string; role: Role });
 
   await validateMembershipOperation(memberId, teamMember, {
     role,

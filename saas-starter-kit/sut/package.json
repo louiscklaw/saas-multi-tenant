@@ -24,6 +24,7 @@
     "build-ci": "next build",
     "sync-stripe": "node --env-file .env sync-stripe.js",
     "check-locale": "node check-locale.js",
+    "prettier_format": "prettier --write .",
     "delete-team": "node --env-file .env delete-team.js"
   },
   "dependencies": {

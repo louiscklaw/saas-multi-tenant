@@ -90,10 +90,7 @@ const isAllowed = (role: Role, resource: Resource, action: Action) => {
   }
 
   for (const permission of rolePermissions) {
-    if (
-      permission.resource === resource &&
-      (permission.actions === '*' || permission.actions.includes(action))
-    ) {
+    if (permission.resource === resource && (permission.actions === '*' || permission.actions.includes(action))) {
       return true;
     }
   }
@@ -101,26 +98,16 @@ const isAllowed = (role: Role, resource: Resource, action: Action) => {
   return false;
 };
 
-export const throwIfNotAllowed = (
-  user: Pick<TeamMember, 'role'>,
-  resource: Resource,
-  action: Action
-) => {
+export const throwIfNotAllowed = (user: Pick<TeamMember, 'role'>, resource: Resource, action: Action) => {
   if (isAllowed(user.role, resource, action)) {
     return true;
   }
 
-  throw new ApiError(
-    403,
-    `You are not allowed to perform ${action} on ${resource}`
-  );
+  throw new ApiError(403, `You are not allowed to perform ${action} on ${resource}`);
 };
 
 // Get current user from session
-export const getCurrentUser = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
+export const getCurrentUser = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession(req, res);
 
   if (!session) {

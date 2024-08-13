@@ -5,9 +5,7 @@ export const getAllPrices = async () => {
   return await prisma.price.findMany();
 };
 
-export const getServiceByPriceId = async (
-  priceId: string
-): Promise<Service | undefined> => {
+export const getServiceByPriceId = async (priceId: string): Promise<Service | undefined> => {
   const data = await prisma.price.findUnique({
     where: {
       id: priceId,

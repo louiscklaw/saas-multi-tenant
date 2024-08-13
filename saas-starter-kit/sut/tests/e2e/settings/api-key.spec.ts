@@ -44,9 +44,7 @@ test('Should be able to delete API Key', async ({ apiKeyPage }) => {
   await apiKeyPage.checkNoApiKeys();
 });
 
-test('Should not allow to create API Key with empty name', async ({
-  apiKeyPage,
-}) => {
+test('Should not allow to create API Key with empty name', async ({ apiKeyPage }) => {
   await apiKeyPage.goto();
 
   await apiKeyPage.fillNewApiKeyName('');
@@ -54,9 +52,7 @@ test('Should not allow to create API Key with empty name', async ({
   await apiKeyPage.isCreateApiKeyButtonDisabled();
 });
 
-test('Should not allow to create API Key with more than 50 characters', async ({
-  apiKeyPage,
-}) => {
+test('Should not allow to create API Key with more than 50 characters', async ({ apiKeyPage }) => {
   await apiKeyPage.goto();
 
   await apiKeyPage.fillNewApiKeyName('a'.repeat(51));

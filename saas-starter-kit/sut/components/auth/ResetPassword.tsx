@@ -1,9 +1,5 @@
 import { InputWithLabel } from '@/components/shared';
-import {
-  defaultHeaders,
-  maxLengthPolicies,
-  passwordPolicies,
-} from '@/lib/common';
+import { defaultHeaders, maxLengthPolicies, passwordPolicies } from '@/lib/common';
 import { useFormik } from 'formik';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -25,17 +21,10 @@ const ResetPassword = () => {
       confirmPassword: '',
     },
     validationSchema: Yup.object().shape({
-      password: Yup.string()
-        .required()
-        .min(passwordPolicies.minLength)
-        .max(maxLengthPolicies.password),
+      password: Yup.string().required().min(passwordPolicies.minLength).max(maxLengthPolicies.password),
       confirmPassword: Yup.string()
         .max(maxLengthPolicies.password)
-        .test(
-          'passwords-match',
-          'Passwords must match',
-          (value, context) => value === context.parent.password
-        ),
+        .test('passwords-match', 'Passwords must match', (value, context) => value === context.parent.password),
     }),
     onSubmit: async (values) => {
       setSubmitting(true);
@@ -83,23 +72,12 @@ const ResetPassword = () => {
             name="confirmPassword"
             placeholder={t('confirm-password')}
             value={formik.values.confirmPassword}
-            error={
-              formik.touched.confirmPassword
-                ? formik.errors.confirmPassword
-                : undefined
-            }
+            error={formik.touched.confirmPassword ? formik.errors.confirmPassword : undefined}
             onChange={formik.handleChange}
           />
         </div>
         <div className="mt-4">
-          <Button
-            type="submit"
-            color="primary"
-            loading={submitting}
-            active={formik.dirty}
-            fullWidth
-            size="md"
-          >
+          <Button type="submit" color="primary" loading={submitting} active={formik.dirty} fullWidth size="md">
             {t('reset-password')}
           </Button>
         </div>

@@ -1,11 +1,5 @@
 import { sendAudit } from '@/lib/retraced';
-import {
-  deleteTeam,
-  getCurrentUserWithTeam,
-  getTeam,
-  throwIfNoTeamAccess,
-  updateTeam,
-} from 'models/team';
+import { deleteTeam, getCurrentUserWithTeam, getTeam, throwIfNoTeamAccess, updateTeam } from 'models/team';
 import { throwIfNotAllowed } from 'models/user';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { recordMetric } from '@/lib/metrics';
@@ -14,10 +8,7 @@ import env from '@/lib/env';
 import { updateTeamSchema, validateWithSchema } from '@/lib/zod';
 import { Prisma, Team } from '@prisma/client';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     await throwIfNoTeamAccess(req, res);
 
@@ -75,11 +66,7 @@ const handlePUT = async (req: NextApiRequest, res: NextApiResponse) => {
       domain,
     });
   } catch (error: any) {
-    if (
-      error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === 'P2002' &&
-      error.meta?.target
-    ) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002' && error.meta?.target) {
       const target = error.meta.target as string[];
 
       if (target.includes('slug')) {
@@ -87,10 +74,7 @@ const handlePUT = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       if (target.includes('domain')) {
-        throw new ApiError(
-          409,
-          'This domain is already associated with a team.'
-        );
+        throw new ApiError(409, 'This domain is already associated with a team.');
       }
     }
 

@@ -3,9 +3,7 @@ const fetcher = async (url: string) => {
   const json = await response.json();
 
   if (!response.ok) {
-    throw new Error(
-      json.error.message || 'An error occurred while fetching the data'
-    );
+    throw new Error(json.error.message || 'An error occurred while fetching the data');
   }
 
   return json;

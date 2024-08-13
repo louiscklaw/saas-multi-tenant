@@ -15,9 +15,7 @@ export class ApiKeysPage {
     public readonly page: Page,
     public readonly teamSlug: string
   ) {
-    this.modalCreateApiKeyButton = this.page
-      .getByLabel('Modal')
-      .getByRole('button', { name: 'Create API Key' });
+    this.modalCreateApiKeyButton = this.page.getByLabel('Modal').getByRole('button', { name: 'Create API Key' });
     this.createApiKeyButton = this.page.getByRole('button', {
       name: 'Create API Key',
     });
@@ -38,9 +36,7 @@ export class ApiKeysPage {
   async goto() {
     await this.page.goto(`/teams/${this.teamSlug}/api-keys`);
     await this.page.waitForURL(`/teams/${this.teamSlug}/api-keys`);
-    await expect(
-      this.page.getByRole('heading', { name: 'API Keys', exact: true })
-    ).toBeVisible();
+    await expect(this.page.getByRole('heading', { name: 'API Keys', exact: true })).toBeVisible();
   }
 
   async createNewApiKey(name: string) {
@@ -51,9 +47,7 @@ export class ApiKeysPage {
 
   async fillNewApiKeyName(name: string) {
     await this.createApiKeyButton.click();
-    await expect(
-      this.page.getByRole('heading', { name: 'New API Key' })
-    ).toBeVisible();
+    await expect(this.page.getByRole('heading', { name: 'New API Key' })).toBeVisible();
     await this.apiKeyNameInput.fill(name);
   }
 
@@ -64,22 +58,14 @@ export class ApiKeysPage {
   async revokeApiKey() {
     await this.revokeApiKeyButton.click();
     await expect(
-      this.page.getByText(
-        'Are you sure you want to revoke this API Key? This action can not be undone.'
-      )
+      this.page.getByText('Are you sure you want to revoke this API Key? This action can not be undone.')
     ).toBeVisible();
     await this.revokeApiKeyConfirmationButton.click();
-    await expect(
-      this.page
-        .getByRole('status')
-        .and(this.page.getByText(this.apiKeyDeleteSuccessMessage))
-    ).toBeVisible();
+    await expect(this.page.getByRole('status').and(this.page.getByText(this.apiKeyDeleteSuccessMessage))).toBeVisible();
   }
 
   async isApiKeyNameLengthErrorVisible() {
-    await expect(
-      await this.page.getByText('Name should have at most 50 characters')
-    ).toBeVisible();
+    await expect(await this.page.getByText('Name should have at most 50 characters')).toBeVisible();
   }
 
   async isCreateApiKeyButtonDisabled() {

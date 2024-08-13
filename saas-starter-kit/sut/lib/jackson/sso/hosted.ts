@@ -1,7 +1,4 @@
-import type {
-  DelConnectionsQuery,
-  GetConnectionsQuery,
-} from '@boxyhq/saml-jackson';
+import type { DelConnectionsQuery, GetConnectionsQuery } from '@boxyhq/saml-jackson';
 
 import env from '@/lib/env';
 import { options } from '../config';

@@ -12,11 +12,7 @@ import { useFormik } from 'formik';
 import { z } from 'zod';
 import { createApiKeySchema } from '@/lib/zod';
 
-const NewAPIKey = ({
-  team,
-  createModalVisible,
-  setCreateModalVisible,
-}: NewAPIKeyProps) => {
+const NewAPIKey = ({ team, createModalVisible, setCreateModalVisible }: NewAPIKeyProps) => {
   const { mutate } = useSWRConfig();
   const [apiKey, setApiKey] = useState('');
 
@@ -33,11 +29,7 @@ const NewAPIKey = ({
   return (
     <Modal open={createModalVisible} close={toggleVisible}>
       {apiKey === '' ? (
-        <CreateAPIKeyForm
-          team={team}
-          onNewAPIKey={onNewAPIKey}
-          closeModal={toggleVisible}
-        />
+        <CreateAPIKeyForm team={team} onNewAPIKey={onNewAPIKey} closeModal={toggleVisible} />
       ) : (
         <DisplayAPIKey apiKey={apiKey} closeModal={toggleVisible} />
       )}
@@ -45,11 +37,7 @@ const NewAPIKey = ({
   );
 };
 
-const CreateAPIKeyForm = ({
-  team,
-  onNewAPIKey,
-  closeModal,
-}: CreateAPIKeyFormProps) => {
+const CreateAPIKeyForm = ({ team, onNewAPIKey, closeModal }: CreateAPIKeyFormProps) => {
   const { t } = useTranslation('common');
 
   const formik = useFormik<z.infer<typeof createApiKeySchema>>({
@@ -128,12 +116,7 @@ const DisplayAPIKey = ({ apiKey, closeModal }: DisplayAPIKeyProps) => {
       <Modal.Header>{t('new-api-key')}</Modal.Header>
       <Modal.Description>{t('new-api-warning')}</Modal.Description>
       <Modal.Body>
-        <InputWithCopyButton
-          label={t('api-key')}
-          value={apiKey}
-          className="text-sm"
-          readOnly
-        />
+        <InputWithCopyButton label={t('api-key')} value={apiKey} className="text-sm" readOnly />
       </Modal.Body>
       <Modal.Footer>
         <Button type="button" variant="outline" onClick={closeModal} size="md">

@@ -1,7 +1,4 @@
-import type {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from 'next';
+import type { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 
 import * as Yup from 'yup';
 import Link from 'next/link';
@@ -33,9 +30,11 @@ interface Message {
   status: ComponentStatus | null;
 }
 
-const Login: NextPageWithLayout<
-  InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ csrfToken, authProviders, recaptchaSiteKey }) => {
+const Login: NextPageWithLayout<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
+  csrfToken,
+  authProviders,
+  recaptchaSiteKey,
+}) => {
   const router = useRouter();
   const { status } = useSession();
   const { t } = useTranslation('common');
@@ -64,9 +63,7 @@ const Login: NextPageWithLayout<
     }
   }, [error, success]);
 
-  const redirectUrl = token
-    ? `/invitations/${token}`
-    : env.redirectIfAuthenticated;
+  const redirectUrl = token ? `/invitations/${token}` : env.redirectIfAuthenticated;
 
   const formik = useFormik({
     initialValues: {
@@ -127,8 +124,9 @@ const Login: NextPageWithLayout<
           {authProviders.google && <GoogleButton />}
         </div>
 
-        {(authProviders.github || authProviders.google) &&
-          authProviders.credentials && <div className="divider">{t('or')}</div>}
+        {(authProviders.github || authProviders.google) && authProviders.credentials && (
+          <div className="divider">{t('or')}</div>
+        )}
 
         {authProviders.credentials && (
           <form onSubmit={formik.handleSubmit}>
@@ -161,9 +159,7 @@ const Login: NextPageWithLayout<
                       </span>
                     </label>
                   }
-                  error={
-                    formik.touched.password ? formik.errors.password : undefined
-                  }
+                  error={formik.touched.password ? formik.errors.password : undefined}
                   onChange={formik.handleChange}
                 />
                 <TogglePasswordVisibility
@@ -171,11 +167,7 @@ const Login: NextPageWithLayout<
                   handlePasswordVisibility={handlePasswordVisibility}
                 />
               </div>
-              <GoogleReCAPTCHA
-                recaptchaRef={recaptchaRef}
-                onChange={setRecaptchaToken}
-                siteKey={recaptchaSiteKey}
-              />
+              <GoogleReCAPTCHA recaptchaRef={recaptchaRef} onChange={setRecaptchaToken} siteKey={recaptchaSiteKey} />
             </div>
             <div className="mt-3 space-y-3">
               <Button
@@ -193,16 +185,11 @@ const Login: NextPageWithLayout<
           </form>
         )}
 
-        {(authProviders.email || authProviders.saml) && (
-          <div className="divider"></div>
-        )}
+        {(authProviders.email || authProviders.saml) && <div className="divider"></div>}
 
         <div className="space-y-3">
           {authProviders.email && (
-            <Link
-              href={`/auth/magic-link${params}`}
-              className="btn btn-outline w-full"
-            >
+            <Link href={`/auth/magic-link${params}`} className="btn btn-outline w-full">
               &nbsp;{t('sign-in-with-email')}
             </Link>
           )}
@@ -235,9 +222,7 @@ Login.getLayout = function getLayout(page: ReactElement) {
   );
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { locale } = context;
 
   return {

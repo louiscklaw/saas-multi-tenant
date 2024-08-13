@@ -5,10 +5,7 @@ import { throwIfNoTeamAccess } from 'models/team';
 import { stripe, getStripeCustomerId } from '@/lib/stripe';
 import env from '@/lib/env';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     switch (req.method) {
       case 'POST':

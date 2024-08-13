@@ -8,15 +8,7 @@ import type { JacksonDsync } from './utils';
 export class JacksonHosted implements JacksonDsync {
   private dsyncUrl = `${env.jackson.url}/api/v1/dsync`;
 
-  async createConnection({
-    name,
-    type,
-    tenant,
-  }: {
-    name: string;
-    type: string;
-    tenant: string;
-  }) {
+  async createConnection({ name, type, tenant }: { name: string; type: string; tenant: string }) {
     const response = await fetch(this.dsyncUrl, {
       ...options,
       method: 'POST',
